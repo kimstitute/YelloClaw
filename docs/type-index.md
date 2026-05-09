@@ -25,6 +25,7 @@ This document points to the working type source for implementation.
 - MVP checklist: `docs/mvp-checklist.md`
 - Final MVP guide: `docs/final-mvp-guide.md`
 - Runtime contract alignment: `docs/runtime-contract-alignment.md`
+- Runtime code alignment: `docs/runtime-code-alignment.md`
 - Plugin runtime contract: `docs/plugin-runtime-contract.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 

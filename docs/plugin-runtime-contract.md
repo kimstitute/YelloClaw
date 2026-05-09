@@ -33,6 +33,8 @@ Define the runtime contract that YellowClaw should satisfy as an OpenClaw plugin
 - Entrypoint remains thin
 - Callback delivery stays isolated
 - Rendering stays separate from policy and session management
+- `plugin-runtime.ts` is the shared orchestration surface
+- `entrypoint.ts` is the public-facing handler surface
 
 ## Notes
 
