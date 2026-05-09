@@ -53,7 +53,7 @@ export interface KakaoSkillResponse {
 }
 
 export interface KakaoTemplateEnvelope {
-  outputs?: KakaoOutput[];
+  outputs: KakaoOutput[];
   quickReplies?: KakaoQuickReply[];
 }
 

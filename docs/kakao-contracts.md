@@ -30,7 +30,7 @@ YellowClaw notes:
 To use callback mode:
 - `version: "2.0"`
 - `useCallback: true`
-- `template` is not used in the immediate response
+- `template` is required as the container for outputs / quickReplies
 - `context` is optional
 - `data` is optional
 - `context` and `data` are top-level siblings of `template`
@@ -42,7 +42,13 @@ Example shape:
   "version": "2.0",
   "useCallback": true,
   "template": {
-    "outputs": []
+    "outputs": [
+      {
+        "textCard": {
+          "title": "잠시만 기다려줘."
+        }
+      }
+    ]
   },
   "context": {
     "values": [
@@ -66,6 +72,7 @@ YellowClaw notes:
 - Use it to acknowledge receipt and defer full processing
 - Do not put the final user-facing answer here when callback mode is enabled
 - Put `context` and `data` outside `template`
+- Keep the template output minimal for the ACK path
 
 ## 3) Callback Request (`CallbackRequest`)
 

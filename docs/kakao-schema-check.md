@@ -18,6 +18,7 @@
 - `action: "message"` should carry `messageText`
 - `action: "block"` should carry `blockId`
 - `buttonLayout` should be explicit when used
+- `items` should not exceed Kakao limits
 
 ### quickReplies
 - derived from render data in the current draft

@@ -56,6 +56,13 @@
           "buttonLayout": "vertical"
         }
       }
+    ],
+    "quickReplies": [
+      {
+        "label": "다음",
+        "action": "message",
+        "messageText": "다음 단계"
+      }
     ]
   }
 }
