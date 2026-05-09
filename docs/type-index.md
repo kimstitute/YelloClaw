@@ -9,36 +9,7 @@ This document points to the working type source for implementation.
 - Type lock checklist: `docs/types-to-lock.md`
 - Plugin config: `docs/plugin-config.md`
 - Storage schema: `docs/storage-schema.md`
-- Session manager: `docs/session-manager.md`
-- Session manager check: `docs/session-manager-check.md`
-- App flow: `docs/app-flow.md`
-- Callback flow: `docs/callback-flow.md`
-- Policy draft: `docs/policy.md`
-- Policy check: `docs/policy-check.md`
-- Rendering draft: `docs/rendering.md`
-- Rendering contract check: `docs/rendering-contract-check.md`
-- Kakao schema check: `docs/kakao-schema-check.md`
-- Skill response check: `docs/skill-response-check.md`
-- Quick replies draft: `docs/quick-replies.md`
-- Plugin bootstrap: `docs/plugin-bootstrap.md`
-- Plugin entrypoint: `docs/plugin-entrypoint.md`
-- Entrypoint runtime: `docs/entrypoint-runtime.md`
-- Entrypoint runtime check: `docs/entrypoint-runtime-check.md`
-- Entrypoint entrypoint check: `docs/entrypoint-entrypoint-check.md`
-- App-entrypoint integration: `docs/app-entrypoint-integration.md`
-- MVP call chain: `docs/mvp-call-chain.md`
-- MVP example: `docs/mvp-example.md`
-- README examples: `docs/README-examples.md`
-- MVP checklist: `docs/mvp-checklist.md`
-- Final MVP guide: `docs/final-mvp-guide.md`
-- Final MVP check: `docs/final-mvp-check.md`
-- Checkpoint status: `docs/checkpoint-status.md`
-- Runtime contract alignment: `docs/runtime-contract-alignment.md`
-- Runtime code alignment: `docs/runtime-code-alignment.md`
-- Runtime code review: `docs/runtime-code-review.md`
-- Plugin runtime contract: `docs/plugin-runtime-contract.md`
-- Implementation plan: `IMPLEMENTATION_PLAN.md`
-
+- Session manager
 ## Runtime Source
 
 - Implementation type source: `src/types.ts`
@@ -50,6 +21,11 @@ This document points to the working type source for implementation.
 - `src/renderers/index.ts`
 - `src/policy/index.ts`
 - `src/types.ts`
+
+## Type Notes
+
+- `src/types.ts` is the canonical implementation type source.
+- Kakao payload types are intentionally MVP-tolerant: top-level `bot` / `intent` / `action` use explicit nested interfaces, and `userRequest.user` allows optional Kakao identity fields.
 
 ## Rule
 

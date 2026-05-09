@@ -97,3 +97,11 @@ export function renderForKakao(
     quickReplies,
   };
 }
+
+export function renderTextOnly(text: string): YellowClawRenderResult {
+  return {
+    text,
+    cards: [toTextCard(text)],
+    quickReplies: [],
+  };
+}

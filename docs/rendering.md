@@ -8,8 +8,10 @@ Translate YellowClaw core output into Kakao-friendly response payloads.
 
 - Markdown is normalized into plain text first.
 - Text mode returns a text card with the normalized text.
-- Card mode currently returns a text card, a basic card placeholder, and a list card placeholder.
+- Card mode returns a text card, a basic card placeholder, and a list card placeholder.
 - Quick replies can be derived from string-valued render data keys.
+- `buildCallbackPayload()` only wraps an already-rendered `YellowClawRenderResult` into Kakao callback shape.
+- A `renderTextOnly(text)` helper exists for the simplest fallback case.
 
 ## Notes
 

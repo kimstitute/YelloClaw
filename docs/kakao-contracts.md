@@ -24,6 +24,8 @@ YellowClaw notes:
 - Treat this as the inbound event contract
 - Extract channel/user identity here
 - Store only the fields needed for session/context resolution
+- Model `bot` / `intent` / `action` with explicit nested types instead of `unknown`
+- Keep `userRequest.user` aligned to Kakao's user identity shape, but allow optional fields for MVP tolerance
 
 ## 2) Immediate Skill Response (`SkillResponse`)
 

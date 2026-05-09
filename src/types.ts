@@ -1,11 +1,31 @@
 export type ChannelName = 'kakao';
 
 export interface KakaoSkillPayload {
-  bot?: unknown;
-  intent?: unknown;
-  action?: unknown;
+  bot?: KakaoSkillBot;
+  intent?: KakaoSkillIntent;
+  action?: KakaoSkillAction;
   userRequest: KakaoUserRequest;
   contexts?: KakaoContext[];
+}
+
+export interface KakaoSkillBot {
+  id?: string;
+  name?: string;
+}
+
+export interface KakaoSkillIntent {
+  id?: string;
+  name?: string;
+  category?: string;
+  analysis?: Record<string, unknown>;
+}
+
+export interface KakaoSkillAction {
+  id?: string;
+  name?: string;
+  clientExtra?: Record<string, unknown>;
+  params?: Record<string, unknown>;
+  detailParams?: Record<string, unknown>;
 }
 
 export interface KakaoUserRequest {
@@ -20,6 +40,7 @@ export interface KakaoUserRequest {
 
 export interface KakaoUserIdentity {
   id?: string;
+  type?: string;
   properties?: Record<string, unknown>;
 }
 
