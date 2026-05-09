@@ -8,6 +8,7 @@
 4. Render response for Kakao
 5. Build callback payload
 6. Send callback to Kakao
+7. Keep app logic reusable outside the transport layer
 
 ## Runtime entry
 

@@ -10,6 +10,7 @@ This document points to the working type source for implementation.
 - Plugin config: `docs/plugin-config.md`
 - Storage schema: `docs/storage-schema.md`
 - Session manager: `docs/session-manager.md`
+- Session manager check: `docs/session-manager-check.md`
 - App flow: `docs/app-flow.md`
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`

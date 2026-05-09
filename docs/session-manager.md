@@ -11,6 +11,7 @@ SessionManager is responsible for in-memory state for YellowClaw while the syste
 - Create and fetch sessions
 - Update session state
 - Convert session records into conversation context objects
+- Use channel + user as the session key for the first version
 
 ## Notes
 
