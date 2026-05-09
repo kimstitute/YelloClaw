@@ -15,6 +15,7 @@ This document points to the working type source for implementation.
 - Policy draft: `docs/policy.md`
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Plugin entrypoint: `docs/plugin-entrypoint.md`
+- Entrypoint runtime: `docs/entrypoint-runtime.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source
