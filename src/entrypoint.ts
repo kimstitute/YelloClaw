@@ -1,5 +1,6 @@
 import { YellowClawApp } from './index';
-import type { KakaoSkillPayload, KakaoSkillResponse } from './types';
+import { buildCallbackPayload, postKakaoCallback } from './callback';
+import type { KakaoSkillPayload, KakaoSkillResponse, YellowClawRenderResult } from './types';
 
 const app = new YellowClawApp();
 
@@ -20,4 +21,14 @@ export async function handleSkillRequest(
       ],
     },
   };
+}
+
+export async function handleCallbackFlow(
+  payload: KakaoSkillPayload,
+  result: YellowClawRenderResult,
+): Promise<Response | undefined> {
+  const callbackUrl = payload.userRequest.callbackUrl;
+  if (!callbackUrl) return undefined;
+  const callbackPayload = buildCallbackPayload(result);
+  return postKakaoCallback(callbackUrl, callbackPayload);
 }
