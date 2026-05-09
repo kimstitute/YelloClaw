@@ -31,6 +31,7 @@ To use callback mode:
 - `version: "2.0"`
 - `useCallback: true`
 - `template` is required as the container for outputs / quickReplies
+- `outputs` is required inside `template`
 - `context` is optional
 - `data` is optional
 - `context` and `data` are top-level siblings of `template`
@@ -73,6 +74,7 @@ YellowClaw notes:
 - Do not put the final user-facing answer here when callback mode is enabled
 - Put `context` and `data` outside `template`
 - Keep the template output minimal for the ACK path
+- Keep `outputs` present even when the list is small
 
 ## 3) Callback Request (`CallbackRequest`)
 

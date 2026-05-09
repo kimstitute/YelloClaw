@@ -16,6 +16,7 @@ This document points to the working type source for implementation.
 - Rendering draft: `docs/rendering.md`
 - Rendering contract check: `docs/rendering-contract-check.md`
 - Kakao schema check: `docs/kakao-schema-check.md`
+- Skill response check: `docs/skill-response-check.md`
 - Quick replies draft: `docs/quick-replies.md`
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Plugin entrypoint: `docs/plugin-entrypoint.md`
