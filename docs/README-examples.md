@@ -38,6 +38,19 @@
             "imageUrl": "https://placehold.co/600x400/png"
           }
         }
+      },
+      {
+        "listCard": {
+          "header": {
+            "title": "YellowClaw"
+          },
+          "items": [
+            {
+              "title": "첫 항목",
+              "description": "MVP 리스트 카드 예시"
+            }
+          ]
+        }
       }
     ],
     "quickReplies": [

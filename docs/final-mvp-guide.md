@@ -32,6 +32,13 @@ Make the smallest KakaoTalk -> YellowClaw -> callback -> Kakao loop work for one
 - Per-user context separation
 - Callback mode only
 
+## Final implementation rules
+
+- Keep the app and entrypoint drafts aligned.
+- Keep the runtime contract aligned with the code.
+- Keep the README in sync with the MVP guide.
+- Keep the type index in sync with every new doc.
+
 ## Notes
 
 This guide should be used as the final implementation checklist before expanding to richer behavior.
