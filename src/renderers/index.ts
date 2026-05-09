@@ -1,6 +1,5 @@
 import type {
   KakaoBasicCardOutput,
-  KakaoButton,
   KakaoListCardItem,
   KakaoListCardOutput,
   KakaoOutput,
@@ -27,7 +26,19 @@ function toTextCard(text: string): KakaoTextCardOutput {
 
 function toQuickRepliesFromData(data?: Record<string, unknown>): KakaoQuickReply[] {
   if (!data) return [];
-  return [];
+
+  const replies: KakaoQuickReply[] = [];
+  for (const [label, value] of Object.entries(data)) {
+    if (typeof value === 'string') {
+      replies.push({
+        label,
+        action: 'message',
+        messageText: value,
+      });
+    }
+  }
+
+  return replies;
 }
 
 function toBasicCard(text: string): KakaoBasicCardOutput {
@@ -65,19 +76,20 @@ export function renderForKakao(
   request: YellowClawRenderRequest,
 ): YellowClawRenderResult {
   const text = request.text ?? (request.markdown ? normalizeMarkdown(request.markdown) : '');
+  const quickReplies = toQuickRepliesFromData(request.data);
 
   if (request.format === 'card') {
     const cards: KakaoOutput[] = [toTextCard(text), toBasicCard(text), toListCard(text)];
     return {
       text,
       cards,
-      quickReplies: toQuickRepliesFromData(request.data),
+      quickReplies,
     };
   }
 
   return {
     text,
     cards: [toTextCard(text)],
-    quickReplies: toQuickRepliesFromData(request.data),
+    quickReplies,
   };
 }
