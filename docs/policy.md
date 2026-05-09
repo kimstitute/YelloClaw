@@ -10,6 +10,7 @@ Define access control and privilege rules for YellowClaw.
 - Sensitive tools are admin-only.
 - The admin identity must be explicit.
 - Only allowlisted users may interact when allowlist mode is enabled.
+- `evaluateAuthState(userId, policy)` should derive `allowed`, `paired`, and `role` consistently.
 
 ## Draft helpers
 

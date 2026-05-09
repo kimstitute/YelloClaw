@@ -14,6 +14,7 @@ This document points to the working type source for implementation.
 - App flow: `docs/app-flow.md`
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`
+- Policy check: `docs/policy-check.md`
 - Rendering draft: `docs/rendering.md`
 - Rendering contract check: `docs/rendering-contract-check.md`
 - Kakao schema check: `docs/kakao-schema-check.md`
