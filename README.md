@@ -58,3 +58,7 @@ KakaoTalk channel plugin for OpenClaw.
 
 YellowClaw is in early scaffold / contract-locking mode.
 The next step is to refine the plugin runtime contract and align the README with the MVP call chain and response examples.
+
+## Example docs
+
+- `docs/README-examples.md`

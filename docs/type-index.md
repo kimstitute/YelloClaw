@@ -21,6 +21,7 @@ This document points to the working type source for implementation.
 - App-entrypoint integration: `docs/app-entrypoint-integration.md`
 - MVP call chain: `docs/mvp-call-chain.md`
 - MVP example: `docs/mvp-example.md`
+- README examples: `docs/README-examples.md`
 - Plugin runtime contract: `docs/plugin-runtime-contract.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
