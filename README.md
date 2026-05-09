@@ -14,10 +14,19 @@ KakaoTalk channel plugin for OpenClaw.
 
 ## Workspace
 
-- `docs/` — design notes, contracts, flows, and schema drafts
+- `docs/` — design notes, contracts, flows, schema drafts, and examples
 - `src/` — plugin source and runtime drafts
 - `configs/` — sample plugin config
 - `kakao-spec/` — Kakao-specific notes
+
+## MVP summary
+
+- KakaoTalk channel only
+- Card responses included
+- Per-user context separation
+- Allowlist-only access
+- Admin-only sensitive tools
+- Callback-mode response flow
 
 ## Current docs
 
@@ -40,6 +49,7 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/app-entrypoint-integration.md`
 - `docs/mvp-call-chain.md`
 - `docs/mvp-example.md`
+- `docs/README-examples.md`
 - `docs/plugin-runtime-contract.md`
 
 ## Current runtime drafts
@@ -58,7 +68,3 @@ KakaoTalk channel plugin for OpenClaw.
 
 YellowClaw is in early scaffold / contract-locking mode.
 The next step is to refine the plugin runtime contract and align the README with the MVP call chain and response examples.
-
-## Example docs
-
-- `docs/README-examples.md`
