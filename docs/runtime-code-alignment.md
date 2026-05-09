@@ -6,10 +6,11 @@ Keep `src/plugin-runtime.ts` and `src/entrypoint.ts` aligned so they describe th
 
 ## Current alignment
 
-- `plugin-runtime.ts` owns the app instance and low-level callback flow helper.
+- `plugin-runtime.ts` owns the app instance and shared orchestration helpers.
 - `entrypoint.ts` imports from `plugin-runtime.ts` and exposes the public skill handler surface.
 - The entrypoint remains thin.
 - The runtime module remains the shared orchestration surface.
+- `buildImmediateResponse()` lives in `plugin-runtime.ts` and is reused by the entrypoint.
 
 ## Notes
 

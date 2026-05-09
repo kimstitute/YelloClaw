@@ -98,3 +98,6 @@ The next step is to refine the plugin runtime contract and align the README with
 - `docs/plugin-entrypoint.md`
 - `docs/entrypoint-runtime.md`
 - `docs/app-entrypoint-integration.md`
+- `docs/runtime-code-alignment.md`
+- `docs/runtime-code-review.md`
+- `docs/runtime-contract-alignment.md`

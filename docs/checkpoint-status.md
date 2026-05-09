@@ -7,6 +7,8 @@
 - The app orchestration layer, session manager, policy, callback, and rendering layers are documented.
 - The Kakao payload / response contracts are documented.
 - Example payloads and MVP guides are documented.
+- The shared orchestration surface is clearly `plugin-runtime.ts`.
+- The public handler surface is clearly `entrypoint.ts`.
 
 ## Remaining work
 
