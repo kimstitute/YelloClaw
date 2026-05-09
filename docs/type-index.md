@@ -24,6 +24,7 @@ This document points to the working type source for implementation.
 - README examples: `docs/README-examples.md`
 - MVP checklist: `docs/mvp-checklist.md`
 - Final MVP guide: `docs/final-mvp-guide.md`
+- Runtime contract alignment: `docs/runtime-contract-alignment.md`
 - Plugin runtime contract: `docs/plugin-runtime-contract.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 

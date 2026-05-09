@@ -38,6 +38,7 @@ Make the smallest KakaoTalk -> YellowClaw -> callback -> Kakao loop work for one
 - Keep the runtime contract aligned with the code.
 - Keep the README in sync with the MVP guide.
 - Keep the type index in sync with every new doc.
+- Keep the runtime contract aligned with `src/plugin-runtime.ts` and `src/entrypoint.ts`.
 
 ## Notes
 

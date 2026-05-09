@@ -27,6 +27,13 @@ Define the runtime contract that YellowClaw should satisfy as an OpenClaw plugin
 - `src/callback.ts`
 - `src/index.ts`
 
+## Alignment checklist
+
+- App flow matches the MVP call chain
+- Entrypoint remains thin
+- Callback delivery stays isolated
+- Rendering stays separate from policy and session management
+
 ## Notes
 
 - This draft should stay aligned with OpenClaw plugin conventions.
