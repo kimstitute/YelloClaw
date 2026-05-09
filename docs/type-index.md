@@ -16,6 +16,9 @@ This document points to the working type source for implementation.
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Plugin entrypoint: `docs/plugin-entrypoint.md`
 - Entrypoint runtime: `docs/entrypoint-runtime.md`
+- App-entrypoint integration: `docs/app-entrypoint-integration.md`
+- MVP call chain: `docs/mvp-call-chain.md`
+- Plugin runtime contract: `docs/plugin-runtime-contract.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source
