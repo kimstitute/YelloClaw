@@ -50,13 +50,24 @@ function buildListCardItems(text: string): KakaoListCardItem[] {
   ];
 }
 
+function toListCard(text: string): KakaoListCardOutput {
+  return {
+    listCard: {
+      header: {
+        title: text,
+      },
+      items: buildListCardItems(text),
+    },
+  };
+}
+
 export function renderForKakao(
   request: YellowClawRenderRequest,
 ): YellowClawRenderResult {
   const text = request.text ?? (request.markdown ? normalizeMarkdown(request.markdown) : '');
 
   if (request.format === 'card') {
-    const cards: KakaoOutput[] = [toTextCard(text), toBasicCard(text)];
+    const cards: KakaoOutput[] = [toTextCard(text), toBasicCard(text), toListCard(text)];
     return {
       text,
       cards,
