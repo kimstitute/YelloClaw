@@ -28,6 +28,14 @@ KakaoTalk channel plugin for OpenClaw.
 - Admin-only sensitive tools
 - Callback-mode response flow
 
+## Runtime drafts
+
+- `src/plugin-runtime.ts`
+- `src/plugin-bootstrap.ts`
+- `src/entrypoint.ts`
+- `src/callback.ts`
+- `src/index.ts`
+
 ## Current docs
 
 - `IMPLEMENTATION_PLAN.md`
@@ -50,6 +58,7 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/mvp-call-chain.md`
 - `docs/mvp-example.md`
 - `docs/README-examples.md`
+- `docs/mvp-checklist.md`
 - `docs/plugin-runtime-contract.md`
 
 ## Current runtime drafts
@@ -63,6 +72,7 @@ KakaoTalk channel plugin for OpenClaw.
 - `src/callback.ts`
 - `src/plugin-bootstrap.ts`
 - `src/entrypoint.ts`
+- `src/plugin-runtime.ts`
 
 ## Current status
 
