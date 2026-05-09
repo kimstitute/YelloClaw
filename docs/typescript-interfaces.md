@@ -240,6 +240,13 @@ export interface YellowClawPolicy {
   allowlistOnly: boolean;
   allowedUsers: string[];
 }
+
+export interface YellowClawAuthState {
+  userId: string;
+  role: 'admin' | 'user';
+  paired: boolean;
+  allowed: boolean;
+}
 ```
 
 ## 7) Plugin Configuration Model

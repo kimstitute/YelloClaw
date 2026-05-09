@@ -12,6 +12,7 @@ This document points to the working type source for implementation.
 - Session manager: `docs/session-manager.md`
 - App flow: `docs/app-flow.md`
 - Callback flow: `docs/callback-flow.md`
+- Policy draft: `docs/policy.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source
