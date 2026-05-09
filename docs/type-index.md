@@ -14,6 +14,7 @@ This document points to the working type source for implementation.
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
+- Plugin entrypoint: `docs/plugin-entrypoint.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source
