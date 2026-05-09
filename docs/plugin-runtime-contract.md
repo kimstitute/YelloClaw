@@ -16,7 +16,16 @@ Define the runtime contract that YellowClaw should satisfy as an OpenClaw plugin
 
 - `handleSkillRequest(payload)`
 - `handleCallbackFlow(payload, result)`
+- `createApp()`
 - `YellowClawApp`
+
+## Current code drafts
+
+- `src/plugin-runtime.ts`
+- `src/entrypoint.ts`
+- `src/plugin-bootstrap.ts`
+- `src/callback.ts`
+- `src/index.ts`
 
 ## Notes
 
