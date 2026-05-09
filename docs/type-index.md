@@ -13,6 +13,7 @@ This document points to the working type source for implementation.
 - App flow: `docs/app-flow.md`
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`
+- Rendering draft: `docs/rendering.md`
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Plugin entrypoint: `docs/plugin-entrypoint.md`
 - Entrypoint runtime: `docs/entrypoint-runtime.md`

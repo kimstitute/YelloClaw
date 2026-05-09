@@ -1,6 +1,7 @@
 import type {
   KakaoBasicCardOutput,
   KakaoButton,
+  KakaoListCardItem,
   KakaoListCardOutput,
   KakaoOutput,
   KakaoQuickReply,
@@ -38,6 +39,15 @@ function toBasicCard(text: string): KakaoBasicCardOutput {
       },
     },
   };
+}
+
+function buildListCardItems(text: string): KakaoListCardItem[] {
+  return [
+    {
+      title: text,
+      description: 'YellowClaw rendered this list item as a placeholder for the MVP.',
+    },
+  ];
 }
 
 export function renderForKakao(
