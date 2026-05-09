@@ -10,7 +10,7 @@ KakaoTalk channel plugin for OpenClaw.
 
 ## Workspace
 
-- `docs/` — design notes, contracts, and flow docs
+- `docs/` — design notes, contracts, flows, and schema drafts
 - `src/` — plugin source and runtime drafts
 - `configs/` — sample plugin config
 - `kakao-spec/` — Kakao-specific notes
@@ -28,7 +28,14 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/app-flow.md`
 - `docs/callback-flow.md`
 - `docs/policy.md`
+- `docs/rendering.md`
+- `docs/quick-replies.md`
 - `docs/plugin-bootstrap.md`
+- `docs/plugin-entrypoint.md`
+- `docs/entrypoint-runtime.md`
+- `docs/app-entrypoint-integration.md`
+- `docs/mvp-call-chain.md`
+- `docs/plugin-runtime-contract.md`
 
 ## Current runtime drafts
 
@@ -40,8 +47,9 @@ KakaoTalk channel plugin for OpenClaw.
 - `src/channel-adapters/kakao/index.ts`
 - `src/callback.ts`
 - `src/plugin-bootstrap.ts`
+- `src/entrypoint.ts`
 
 ## Current status
 
 YellowClaw is in early scaffold / contract-locking mode.
-The next step is to refine the actual plugin entrypoint and wire the bootstrap to the OpenClaw plugin runtime.
+The next step is to refine the plugin runtime contract and align the README with the MVP call chain and response examples.
