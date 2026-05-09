@@ -11,6 +11,7 @@ This document points to the working type source for implementation.
 - Storage schema: `docs/storage-schema.md`
 - Session manager: `docs/session-manager.md`
 - App flow: `docs/app-flow.md`
+- Callback flow: `docs/callback-flow.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source

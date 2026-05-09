@@ -20,3 +20,16 @@ export function buildCallbackPayload(
     data: rendered.text ? { text: rendered.text } : undefined,
   };
 }
+
+export async function postKakaoCallback(
+  callbackUrl: string,
+  request: KakaoCallbackRequest,
+): Promise<Response> {
+  return fetch(callbackUrl, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
+}

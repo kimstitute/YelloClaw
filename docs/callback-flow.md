@@ -23,6 +23,11 @@ Use Kakao callback mode to separate fast acknowledgment from final response deli
 - `YellowClawCallbackJob`
   - tracks callback URL, payload, and delivery status
 
+## Runtime helper
+
+- `buildCallbackPayload(result)` creates the Kakao callback payload.
+- `postKakaoCallback(callbackUrl, request)` sends the payload to Kakao.
+
 ## Notes
 
 - The immediate response should stay minimal.
