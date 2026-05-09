@@ -1,0 +1,9 @@
+{
+  "name": "@openclaw/yellow-claw",
+  "version": "0.1.0",
+  "description": "KakaoTalk channel plugin for OpenClaw",
+  "openclaw": {
+    "extensions": ["./src/index.ts"],
+    "runtimeExtensions": ["./dist/index.js"]
+  }
+}
