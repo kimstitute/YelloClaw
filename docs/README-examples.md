@@ -35,7 +35,8 @@
         "basicCard": {
           "title": "안녕, 민상아",
           "thumbnail": {
-            "imageUrl": "https://placehold.co/600x400/png"
+            "imageUrl": "https://placehold.co/600x400/png",
+            "fixedRatio": false
           }
         }
       },
@@ -47,9 +48,12 @@
           "items": [
             {
               "title": "안녕, 민상아",
-              "description": "YellowClaw rendered this list item as a placeholder for the MVP."
+              "description": "YellowClaw rendered this list item as a placeholder for the MVP.",
+              "action": "message",
+              "messageText": "안녕, 민상아"
             }
-          ]
+          ],
+          "buttonLayout": "vertical"
         }
       }
     ]

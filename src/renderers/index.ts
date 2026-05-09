@@ -47,6 +47,7 @@ function toBasicCard(text: string): KakaoBasicCardOutput {
       title: text,
       thumbnail: {
         imageUrl: 'https://placehold.co/600x400/png',
+        fixedRatio: false,
       },
     },
   };
@@ -57,6 +58,8 @@ function buildListCardItems(text: string): KakaoListCardItem[] {
     {
       title: text,
       description: 'YellowClaw rendered this list item as a placeholder for the MVP.',
+      action: 'message',
+      messageText: text,
     },
   ];
 }
@@ -68,6 +71,7 @@ function toListCard(text: string): KakaoListCardOutput {
         title: text,
       },
       items: buildListCardItems(text),
+      buttonLayout: 'vertical',
     },
   };
 }

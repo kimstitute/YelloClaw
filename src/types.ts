@@ -68,6 +68,11 @@ export interface KakaoBasicCardOutput {
     description?: string;
     thumbnail: {
       imageUrl: string;
+      fixedRatio?: boolean;
+      link?: {
+        web?: string;
+        mobile?: string;
+      };
     };
     buttons?: KakaoButton[];
     buttonLayout?: 'horizontal' | 'vertical';
@@ -89,8 +94,11 @@ export interface KakaoListCardItem {
   title: string;
   description?: string;
   imageUrl?: string;
-  link?: string;
-  action?: string;
+  link?: {
+    web?: string;
+    mobile?: string;
+  };
+  action?: 'message' | 'block';
   blockId?: string;
   messageText?: string;
   extra?: Record<string, unknown>;
