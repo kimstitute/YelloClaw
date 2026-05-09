@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./docs/images/yellowclaw-mascot.png" alt="YellowClaw mascot" width="420" />
+</p>
+
 # YellowClaw
 
 KakaoTalk channel plugin for OpenClaw.
@@ -35,6 +39,7 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/entrypoint-runtime.md`
 - `docs/app-entrypoint-integration.md`
 - `docs/mvp-call-chain.md`
+- `docs/mvp-example.md`
 - `docs/plugin-runtime-contract.md`
 
 ## Current runtime drafts
