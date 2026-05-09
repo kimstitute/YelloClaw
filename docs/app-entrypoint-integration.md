@@ -25,10 +25,11 @@ The entrypoint owns:
 
 ## Draft flow
 
-1. `handleSkillRequest(payload)` is called
-2. `YellowClawApp.handleInbound(payload)` creates the inbound message and updates session state
-3. `handleSkillRequest` returns a minimal callback-mode response
-4. `handleCallbackFlow(payload, result)` builds and sends the callback payload
+1. `handleSkillRequest(payload)` is called from the entrypoint layer
+2. The entrypoint uses `plugin-runtime.ts` as the shared orchestration source
+3. `YellowClawApp.handleInbound(payload)` creates the inbound message and updates session state
+4. `handleSkillRequest` returns a minimal callback-mode response
+5. `handleCallbackFlow(payload, result)` builds and sends the callback payload
 
 ## Notes
 

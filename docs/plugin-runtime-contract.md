@@ -35,6 +35,8 @@ Define the runtime contract that YellowClaw should satisfy as an OpenClaw plugin
 - Rendering stays separate from policy and session management
 - `plugin-runtime.ts` is the shared orchestration surface
 - `entrypoint.ts` is the public-facing handler surface
+- `handleSkillRequest` exists in both runtime and entrypoint drafts, but the runtime version is the shared orchestration source
+- `handleCallbackFlow` remains the callback delivery helper
 
 ## Notes
 

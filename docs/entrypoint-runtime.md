@@ -15,6 +15,7 @@ The entrypoint exposes stable functions that a future OpenClaw plugin runtime ca
 - Accepts a Kakao skill payload
 - Produces a callback-mode immediate response
 - Builds and sends the final callback response when a callback URL is present
+- Uses `plugin-runtime.ts` as the shared orchestration source
 
 ## Notes
 
