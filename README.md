@@ -50,15 +50,20 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/callback-flow.md`
 - `docs/policy.md`
 - `docs/rendering.md`
+- `docs/rendering-contract-check.md`
 - `docs/quick-replies.md`
 - `docs/plugin-bootstrap.md`
 - `docs/plugin-entrypoint.md`
 - `docs/entrypoint-runtime.md`
+- `docs/entrypoint-runtime-check.md`
 - `docs/app-entrypoint-integration.md`
 - `docs/mvp-call-chain.md`
 - `docs/mvp-example.md`
 - `docs/README-examples.md`
 - `docs/mvp-checklist.md`
+- `docs/final-mvp-guide.md`
+- `docs/runtime-contract-alignment.md`
+- `docs/runtime-code-alignment.md`
 - `docs/plugin-runtime-contract.md`
 
 ## Current runtime drafts

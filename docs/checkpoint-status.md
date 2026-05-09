@@ -1,0 +1,20 @@
+# Checkpoint Status
+
+## What is aligned now
+
+- README reflects the current MVP and runtime draft structure.
+- The runtime contract is split between `plugin-runtime.ts` and `entrypoint.ts`.
+- The app orchestration layer, session manager, policy, callback, and rendering layers are documented.
+- The Kakao payload / response contracts are documented.
+- Example payloads and MVP guides are documented.
+
+## Remaining work
+
+- Finalize the exact OpenClaw plugin runtime shape.
+- Replace placeholder rendering behavior with real Kakao schema-compliant payloads.
+- Decide whether quick replies should remain heuristic or become schema-driven.
+- Reduce any remaining draft duplication between runtime files.
+
+## Notes
+
+This checkpoint is meant to show what is stable and what still needs polishing before implementation hardening.
