@@ -1,0 +1,17 @@
+{
+  "kakao": {
+    "enabled": true,
+    "channelId": "",
+    "relayUrl": "",
+    "relayToken": ""
+  },
+  "auth": {
+    "pairingRequired": true,
+    "adminUserId": ""
+  },
+  "policy": {
+    "adminOnlyTools": true,
+    "allowlistOnly": true,
+    "allowedUsers": []
+  }
+}

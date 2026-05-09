@@ -1,0 +1,234 @@
+export type ChannelName = 'kakao';
+
+export interface KakaoSkillPayload {
+  bot?: unknown;
+  intent?: unknown;
+  action?: unknown;
+  userRequest: KakaoUserRequest;
+  contexts?: KakaoContext[];
+}
+
+export interface KakaoUserRequest {
+  callbackUrl?: string;
+  block?: KakaoBlock;
+  user?: KakaoUserIdentity;
+  utterance: string;
+  params?: Record<string, unknown>;
+  lang?: string;
+  timezone?: string;
+}
+
+export interface KakaoUserIdentity {
+  id?: string;
+  properties?: Record<string, unknown>;
+}
+
+export interface KakaoBlock {
+  id?: string;
+  name?: string;
+  params?: Record<string, unknown>;
+}
+
+export interface KakaoContext {
+  name: string;
+  lifeSpan: number;
+  params?: Record<string, unknown>;
+}
+
+export interface KakaoSkillResponse {
+  version: '2.0';
+  useCallback: true;
+  template: KakaoTemplateEnvelope;
+  context?: KakaoContextEnvelope;
+  data?: Record<string, unknown>;
+}
+
+export interface KakaoTemplateEnvelope {
+  outputs?: KakaoOutput[];
+  quickReplies?: KakaoQuickReply[];
+}
+
+export type KakaoOutput =
+  | KakaoTextCardOutput
+  | KakaoBasicCardOutput
+  | KakaoListCardOutput;
+
+export interface KakaoTextCardOutput {
+  textCard: {
+    title?: string;
+    description?: string;
+    buttons?: KakaoButton[];
+    buttonLayout?: 'horizontal' | 'vertical';
+  };
+}
+
+export interface KakaoBasicCardOutput {
+  basicCard: {
+    title?: string;
+    description?: string;
+    thumbnail: {
+      imageUrl: string;
+    };
+    buttons?: KakaoButton[];
+    buttonLayout?: 'horizontal' | 'vertical';
+  };
+}
+
+export interface KakaoListCardOutput {
+  listCard: {
+    header: {
+      title: string;
+    };
+    items: KakaoListCardItem[];
+    buttons?: KakaoButton[];
+    buttonLayout?: 'horizontal' | 'vertical';
+  };
+}
+
+export interface KakaoListCardItem {
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  link?: string;
+  action?: string;
+  blockId?: string;
+  messageText?: string;
+  extra?: Record<string, unknown>;
+}
+
+export interface KakaoQuickReply {
+  label: string;
+  action: 'message' | 'block';
+  messageText?: string;
+  blockId?: string;
+  extra?: Record<string, unknown>;
+}
+
+export interface KakaoButton {
+  label: string;
+  action: 'webLink' | 'message' | 'phone' | 'block' | 'share';
+  webLinkUrl?: string;
+  messageText?: string;
+  phoneNumber?: string;
+  blockId?: string;
+  extra?: Record<string, unknown>;
+}
+
+export interface KakaoContextEnvelope {
+  values: KakaoContext[];
+}
+
+export interface KakaoCallbackRequest extends KakaoSkillResponse {
+  // Same JSON shape as the skill response, posted to callbackUrl
+}
+
+export interface KakaoCallbackResponse {
+  taskId: string;
+  status: 'SUCCESS' | 'FAIL' | 'ERROR';
+  message?: string;
+  timestamp?: number;
+}
+
+export interface YellowClawInboundMessage {
+  channel: ChannelName;
+  userId: string;
+  text: string;
+  raw: KakaoSkillPayload;
+  callbackUrl?: string;
+}
+
+export interface YellowClawConversationContext {
+  userId: string;
+  channel: ChannelName;
+  sessionId: string;
+  updatedAt: string;
+  ttlSeconds?: number;
+  state: Record<string, unknown>;
+}
+
+export interface YellowClawAuthState {
+  userId: string;
+  role: 'admin' | 'user';
+  paired: boolean;
+  allowed: boolean;
+}
+
+export interface YellowClawToolCall {
+  toolName: string;
+  args: Record<string, unknown>;
+  requestedBy: string;
+}
+
+export interface YellowClawRenderRequest {
+  format: 'text' | 'card';
+  markdown?: string;
+  text?: string;
+  data?: Record<string, unknown>;
+}
+
+export interface YellowClawRenderResult {
+  text?: string;
+  cards?: KakaoOutput[];
+  quickReplies?: KakaoQuickReply[];
+}
+
+export interface YellowClawPolicy {
+  adminOnlyTools: boolean;
+  allowlistOnly: boolean;
+  allowedUsers: string[];
+}
+
+export interface YellowClawPluginConfig {
+  kakao: {
+    enabled: boolean;
+    channelId?: string;
+    relayUrl?: string;
+    relayToken?: string;
+  };
+  auth: {
+    pairingRequired: boolean;
+    adminUserId: string;
+  };
+  policy: YellowClawPolicy;
+}
+
+export interface YellowClawCallbackJob {
+  callbackUrl: string;
+  payload: KakaoCallbackRequest;
+  status: 'pending' | 'sent' | 'failed';
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface YellowClawTransportEnvelope {
+  inbound: YellowClawInboundMessage;
+  callback?: YellowClawCallbackJob;
+}
+
+export interface YellowClawUserProfile {
+  userId: string;
+  displayName?: string;
+  role: 'admin' | 'user';
+  paired: boolean;
+  allowed: boolean;
+}
+
+export interface YellowClawSessionRecord {
+  sessionId: string;
+  userId: string;
+  channel: ChannelName;
+  createdAt: string;
+  updatedAt: string;
+  expiresAt?: string;
+  state: Record<string, unknown>;
+}
+
+export interface YellowClawMessageRecord {
+  messageId: string;
+  sessionId: string;
+  userId: string;
+  channel: ChannelName;
+  text: string;
+  createdAt: string;
+  direction: 'inbound' | 'outbound';
+}

@@ -5,5 +5,29 @@
   "openclaw": {
     "extensions": ["./src/index.ts"],
     "runtimeExtensions": ["./dist/index.js"]
+  },
+  "plugins": {
+    "entries": {
+      "yellow-claw": {
+        "enabled": true,
+        "config": {
+          "kakao": {
+            "enabled": true,
+            "channelId": "",
+            "relayUrl": "",
+            "relayToken": ""
+          },
+          "auth": {
+            "pairingRequired": true,
+            "adminUserId": ""
+          },
+          "policy": {
+            "adminOnlyTools": true,
+            "allowlistOnly": true,
+            "allowedUsers": []
+          }
+        }
+      }
+    }
   }
 }
