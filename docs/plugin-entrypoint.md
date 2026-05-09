@@ -9,7 +9,8 @@ Define the file that OpenClaw loads as the YellowClaw runtime entrypoint.
 - Expose the app orchestration surface
 - Accept Kakao skill payloads
 - Produce immediate callback-mode responses
-- Leave final callback delivery to a later stage
+- Delegate callback delivery to the shared runtime helper
+- Re-export `getApp()` when needed by the plugin runtime contract
 
 ## Current draft files
 

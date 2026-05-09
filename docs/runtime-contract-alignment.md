@@ -21,3 +21,4 @@ Keep the README, runtime contract, app flow, and entrypoint drafts aligned.
 - The README should reflect the final MVP and runtime responsibilities.
 - The shared orchestration surface should be `src/plugin-runtime.ts`.
 - The public handler surface should be `src/entrypoint.ts`.
+- `getApp()` may be re-exported from the entrypoint when needed by runtime consumers.

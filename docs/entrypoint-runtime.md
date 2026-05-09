@@ -7,6 +7,8 @@ The entrypoint exposes stable functions that a future OpenClaw plugin runtime ca
 ## Draft API
 
 - `handleSkillRequest(payload)`
+- `handleCallbackRequest(payload, result)`
+- `getApp()`
 - `handleCallbackFlow(payload, result)`
 
 ## Behavior

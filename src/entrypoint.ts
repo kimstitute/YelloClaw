@@ -16,3 +16,5 @@ export async function handleCallbackRequest(
 ) {
   return handleCallbackFlow(payload, result);
 }
+
+export { getApp };

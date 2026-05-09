@@ -21,6 +21,7 @@ This document points to the working type source for implementation.
 - Plugin entrypoint: `docs/plugin-entrypoint.md`
 - Entrypoint runtime: `docs/entrypoint-runtime.md`
 - Entrypoint runtime check: `docs/entrypoint-runtime-check.md`
+- Entrypoint entrypoint check: `docs/entrypoint-entrypoint-check.md`
 - App-entrypoint integration: `docs/app-entrypoint-integration.md`
 - MVP call chain: `docs/mvp-call-chain.md`
 - MVP example: `docs/mvp-example.md`

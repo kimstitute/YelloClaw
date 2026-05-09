@@ -11,6 +11,7 @@ Keep `src/plugin-runtime.ts` and `src/entrypoint.ts` aligned so they describe th
 - The entrypoint remains thin.
 - The runtime module remains the shared orchestration surface.
 - `buildImmediateResponse()` lives in `plugin-runtime.ts` and is reused by the entrypoint.
+- `getApp()` is re-exported from the entrypoint for convenience.
 
 ## Notes
 
