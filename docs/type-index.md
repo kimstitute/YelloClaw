@@ -13,6 +13,7 @@ This document points to the working type source for implementation.
 - App flow: `docs/app-flow.md`
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`
+- Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Implementation plan: `IMPLEMENTATION_PLAN.md`
 
 ## Runtime Source
