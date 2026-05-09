@@ -14,6 +14,7 @@ This document points to the working type source for implementation.
 - Callback flow: `docs/callback-flow.md`
 - Policy draft: `docs/policy.md`
 - Rendering draft: `docs/rendering.md`
+- Rendering contract check: `docs/rendering-contract-check.md`
 - Quick replies draft: `docs/quick-replies.md`
 - Plugin bootstrap: `docs/plugin-bootstrap.md`
 - Plugin entrypoint: `docs/plugin-entrypoint.md`

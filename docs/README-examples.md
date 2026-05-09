@@ -33,7 +33,7 @@
       },
       {
         "basicCard": {
-          "title": "YellowClaw",
+          "title": "안녕, 민상아",
           "thumbnail": {
             "imageUrl": "https://placehold.co/600x400/png"
           }
@@ -42,22 +42,15 @@
       {
         "listCard": {
           "header": {
-            "title": "YellowClaw"
+            "title": "안녕, 민상아"
           },
           "items": [
             {
-              "title": "첫 항목",
-              "description": "MVP 리스트 카드 예시"
+              "title": "안녕, 민상아",
+              "description": "YellowClaw rendered this list item as a placeholder for the MVP."
             }
           ]
         }
-      }
-    ],
-    "quickReplies": [
-      {
-        "label": "다음",
-        "action": "message",
-        "messageText": "다음 단계"
       }
     ]
   }
