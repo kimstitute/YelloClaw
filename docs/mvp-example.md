@@ -18,7 +18,9 @@
   - text card
   - basic card only when image URL is real
   - list card only when items are valid
-- Quick replies may be derived from non-empty string render data.
+- Quick replies come from trimmed non-empty string `data` entries.
+- Duplicate quick reply labels are first-wins.
+- `renderTextOnly()` returns no quick replies.
 
 ## Notes
 

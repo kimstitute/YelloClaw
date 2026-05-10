@@ -9,7 +9,7 @@ import type {
   YellowClawRenderRequest,
   YellowClawRenderResult,
 } from '../types';
-import { filterValidCards } from './validation';
+import { filterValidCards, filterValidQuickReplies } from './validation';
 
 type RenderInput = Pick<YellowClawRenderRequest, 'text' | 'markdown' | 'data'> & {
   format?: 'text' | 'card';
@@ -49,11 +49,16 @@ function toQuickRepliesFromData(data?: Record<string, unknown>): KakaoQuickReply
   if (!data) return [];
 
   const replies: KakaoQuickReply[] = [];
+  const seenLabels = new Set<string>();
+
   for (const [label, value] of Object.entries(data)) {
     if (typeof value !== 'string') continue;
     const normalizedLabel = label.trim();
     const normalizedValue = value.trim();
     if (!normalizedLabel || !normalizedValue) continue;
+    if (seenLabels.has(normalizedLabel)) continue;
+
+    seenLabels.add(normalizedLabel);
 
     replies.push({
       label: normalizedLabel,
@@ -62,7 +67,7 @@ function toQuickRepliesFromData(data?: Record<string, unknown>): KakaoQuickReply
     });
   }
 
-  return replies;
+  return filterValidQuickReplies(replies);
 }
 
 function toBasicCard(text: string, imageUrl?: string): KakaoBasicCardOutput | null {

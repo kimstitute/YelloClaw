@@ -13,8 +13,9 @@ Translate YellowClaw core output into Kakao-friendly response payloads.
 - Basic cards are only kept when a real image URL exists.
 - List cards are only kept when they have valid items.
 - Quick replies are derived only from non-empty string-valued render data entries.
+- Quick reply labels are trimmed, duplicate labels are first-wins, and invalid replies are filtered.
 - `buildCallbackPayload()` only wraps an already-rendered `YellowClawRenderResult` into Kakao callback shape.
-- `renderTextOnly(text)` uses the same fallback text constant.
+- `renderTextOnly(text)` uses the same fallback text constant and returns no quick replies.
 
 ## Notes
 

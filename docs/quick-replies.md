@@ -1,29 +1,38 @@
-# Quick Replies Draft
+# Quick Replies Contract
 
 ## Purpose
 
-Generate simple Kakao quick replies from YellowClaw data.
+Define how YellowClaw turns render data into Kakao quick replies.
 
-## Current behavior
+## Contract
 
-- If render data contains string values, they are converted into quick replies.
-- The key becomes the label.
+- Quick replies are created by `renderForKakao()` through `toQuickRepliesFromData()`.
+- Source data must be a non-empty string value.
+- The object key becomes the visible quick reply `label`.
 - The string value becomes `messageText`.
+- Labels are trimmed before use.
+- Empty labels, empty values, and non-string values are skipped.
+- Duplicate labels are first-wins after trim.
+- Duplicate `messageText` values are allowed when labels differ.
+- Invalid quick replies are removed by renderer validation.
+- `renderTextOnly()` always returns `quickReplies: []`.
 
 ## Example
 
 ```ts
 {
   data: {
-    "Yes": "yes",
-    "No": "no"
+    Yes: 'yes',
+    No: 'no',
+    ' Yes ': 'ignored'
   }
 }
 ```
 
-This can render into quick replies with labels `Yes` and `No`.
+This renders as two quick replies:
+- `Yes` → `yes`
+- `No` → `no`
 
 ## Notes
 
-- This is a draft heuristic.
-- It should be replaced or refined once the final quick reply schema is fixed.
+Quick replies are part of the renderer contract, not policy or session logic.

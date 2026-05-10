@@ -3,12 +3,15 @@ import {
   isValidTextCard,
   isValidBasicCard,
   isValidListCard,
+  isValidQuickReply,
   filterValidCards,
+  filterValidQuickReplies,
 } from './validation';
 import type {
   KakaoTextCardOutput,
   KakaoBasicCardOutput,
   KakaoListCardOutput,
+  KakaoQuickReply,
 } from '../types';
 
 describe('Rendering Validation', () => {
@@ -229,6 +232,48 @@ describe('Rendering Validation', () => {
         },
       };
       expect(isValidListCard(card)).toBe(false);
+    });
+  });
+
+  describe('isValidQuickReply', () => {
+    it('should return true for valid message quick reply', () => {
+      const reply: KakaoQuickReply = {
+        label: 'Yes',
+        action: 'message',
+        messageText: 'yes',
+      };
+      expect(isValidQuickReply(reply)).toBe(true);
+    });
+
+    it('should return false for empty label', () => {
+      const reply: KakaoQuickReply = {
+        label: '   ',
+        action: 'message',
+        messageText: 'yes',
+      };
+      expect(isValidQuickReply(reply)).toBe(false);
+    });
+
+    it('should return false for missing messageText', () => {
+      const reply: KakaoQuickReply = {
+        label: 'Yes',
+        action: 'message',
+        messageText: '   ',
+      };
+      expect(isValidQuickReply(reply)).toBe(false);
+    });
+  });
+
+  describe('filterValidQuickReplies', () => {
+    it('should filter out invalid quick replies', () => {
+      const replies = [
+        { label: 'One', action: 'message', messageText: 'one' },
+        { label: '   ', action: 'message', messageText: 'two' },
+      ];
+
+      const result = filterValidQuickReplies(replies as KakaoQuickReply[]);
+      expect(result).toHaveLength(1);
+      expect(result[0].label).toBe('One');
     });
   });
 
