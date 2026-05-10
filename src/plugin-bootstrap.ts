@@ -1,24 +1,20 @@
-import { YellowClawApp } from './index';
-import type { KakaoSkillPayload, KakaoSkillResponse } from './types';
+import { YellowClawRuntime } from './plugin-runtime';
+import { loadPluginConfigFromEnv } from './config';
+import type { YellowClawPluginConfig } from './types';
 
-export async function handleKakaoSkill(
-  payload: KakaoSkillPayload,
-): Promise<{ immediate: KakaoSkillResponse }> {
-  const app = new YellowClawApp();
-  const inbound = app.handleInbound(payload);
-  const immediate = {
-    version: '2.0' as const,
-    useCallback: true as const,
-    template: {
-      outputs: [
-        {
-          textCard: {
-            title: inbound.text || '잠시만 기다려줘.',
-          },
-        },
-      ],
-    },
-  };
+/**
+ * Bootstrap module for YellowClaw plugin.
+ * Optional: Use this to initialize the runtime with custom configuration before OpenClaw calls it.
+ */
+export async function bootstrap(config?: YellowClawPluginConfig): Promise<void> {
+  YellowClawRuntime.configure(config ?? loadPluginConfigFromEnv());
+}
 
-  return { immediate };
+export async function bootstrapAndGetRuntime(config?: YellowClawPluginConfig) {
+  await bootstrap(config);
+  return YellowClawRuntime;
+}
+
+export async function cleanupExpiredSessions(): Promise<number> {
+  return 0;
 }

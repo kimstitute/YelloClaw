@@ -261,3 +261,51 @@ export interface YellowClawMessageRecord {
   createdAt: string;
   direction: 'inbound' | 'outbound';
 }
+
+export interface KakaoRelayNormalizedMessage {
+  userId: string;
+  text: string;
+  channelId: string;
+}
+
+export interface KakaoRelayInboundMessage {
+  id: string;
+  conversationKey: string;
+  timestamp: number;
+  kakaoPayload: KakaoSkillPayload;
+  normalized: KakaoRelayNormalizedMessage;
+  callbackUrl: string;
+  callbackExpiresAt: number;
+}
+
+export interface KakaoRelayMessagesResponse {
+  messages: KakaoRelayInboundMessage[];
+  cursor?: string;
+  hasMore: boolean;
+}
+
+export interface KakaoRelayReplyRequest {
+  messageId: string;
+  conversationKey: string;
+  response: KakaoSkillResponse;
+}
+
+export interface KakaoRelayReplyResponse {
+  success: boolean;
+  deliveredAt?: number;
+}
+
+export interface KakaoRelayAckResponse {
+  acknowledged: number;
+}
+
+export interface KakaoRelayPairingResponse {
+  code: string;
+  expiresAt: number;
+}
+
+export interface KakaoRelayPollOptions {
+  cursor?: string;
+  waitMs?: number;
+  limit?: number;
+}

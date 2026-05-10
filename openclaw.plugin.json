@@ -13,18 +13,18 @@
         "config": {
           "kakao": {
             "enabled": true,
-            "channelId": "",
-            "relayUrl": "",
-            "relayToken": ""
+            "channelId": "kakao",
+            "relayUrl": "https://kakao.openclaw.local",
+            "relayToken": "CHANGE_ME_RELAY_TOKEN"
           },
           "auth": {
             "pairingRequired": true,
-            "adminUserId": ""
+            "adminUserId": "1120110770370392105"
           },
           "policy": {
             "adminOnlyTools": true,
             "allowlistOnly": true,
-            "allowedUsers": []
+            "allowedUsers": ["1120110770370392105"]
           }
         }
       }

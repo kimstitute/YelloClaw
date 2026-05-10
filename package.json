@@ -1,0 +1,27 @@
+{
+  "name": "yellow-claw",
+  "version": "0.1.0",
+  "description": "KakaoTalk channel plugin for OpenClaw",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "build": "tsc --noEmit",
+    "build:check": "tsc --noEmit --module esnext --target es2022 --moduleResolution bundler --lib es2022,dom --skipLibCheck src/*.ts src/core/*.ts src/policy/*.ts src/renderers/*.ts"
+  },
+  "keywords": [
+    "kakao",
+    "openclaw",
+    "plugin",
+    "chatbot"
+  ],
+  "author": "Minsang Kim",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.8.3",
+    "vitest": "^1.0.4"
+  },
+  "dependencies": {}
+}
