@@ -1,16 +1,11 @@
 # Runtime Code Review
 
-## What changed
+## Summary
 
-- `plugin-runtime.ts` now exposes `getApp()` and `buildImmediateResponse()`.
-- `entrypoint.ts` now uses the shared runtime helpers instead of duplicating response construction.
+- `plugin-runtime.ts` owns the app singleton and shared orchestration.
+- `entrypoint.ts` stays thin and delegates to runtime helpers.
+- Immediate response construction is centralized in the runtime module.
 
-## Why this is better
+## Rule
 
-- The runtime module is the shared source of orchestration logic.
-- The entrypoint is thinner and delegates response construction.
-- Immediate response construction is now centralized.
-
-## Notes
-
-If the entrypoint starts doing more work again, move that logic back into `plugin-runtime.ts`.
+If the entrypoint grows logic again, move that logic back into `plugin-runtime.ts`.

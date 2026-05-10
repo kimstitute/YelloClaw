@@ -2,38 +2,34 @@
 
 ## Purpose
 
-Define how the YellowClaw app orchestration layer and the plugin entrypoint relate to each other.
+Define how the YellowClaw app and entrypoint relate.
 
-## Roles
-
-### App
+## App
 
 `YellowClawApp` owns:
 - inbound handling
-- session state updates
+- session updates
 - policy evaluation
 - rendering coordination
 - callback payload building
 
-### Entrypoint
+## Entrypoint
 
 The entrypoint owns:
 - receiving the Kakao skill payload
-- invoking the app orchestration
-- returning the immediate ACK response
-- invoking callback delivery when needed
+- invoking shared runtime orchestration
+- returning the immediate callback-mode ACK
+- delegating callback delivery when needed
 
-## Draft flow
+## Flow
 
-1. `handleSkillRequest(payload)` is called from the entrypoint layer
+1. `handleSkillRequest(payload)` enters through the entrypoint
 2. The entrypoint uses `plugin-runtime.ts` as the shared orchestration source
 3. `YellowClawApp.handleInbound(payload)` creates the inbound message and updates session state
-4. `handleSkillRequest` returns a minimal callback-mode response
+4. `handleSkillRequest` returns the minimal callback-mode response
 5. `handleCallbackRequest(payload, result)` delegates to `handleCallbackFlow(payload, result)`
-6. `handleCallbackFlow(payload, result)` builds and sends the callback payload
+6. `handleCallbackFlow(payload, result)` builds and posts the callback payload
 
 ## Notes
 
-- App logic should stay reusable outside the transport layer.
-- Entrypoint logic should stay thin.
-- Callback delivery should remain separate from rendering logic.
+App logic stays reusable, entrypoint logic stays thin, and callback delivery stays separate from rendering.

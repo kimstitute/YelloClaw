@@ -1,8 +1,4 @@
-# Entrypoint Runtime Draft
-
-## Purpose
-
-The entrypoint exposes stable functions that a future OpenClaw plugin runtime can call.
+# Entrypoint Runtime
 
 ## Stable API
 
@@ -11,20 +7,17 @@ The entrypoint exposes stable functions that a future OpenClaw plugin runtime ca
 - `bootstrap(config?)`
 - `getApp()`
 
-## Internal runtime helper
+## Internal helper
 
-- `handleCallbackFlow(payload, result)` remains an internal shared helper on `src/plugin-runtime.ts`
-- The entrypoint should not expose callback delivery internals directly
+- `handleCallbackFlow(payload, result)` stays inside `src/plugin-runtime.ts`
 
 ## Behavior
 
-- Instantiates or uses the current YellowClaw app state
-- Accepts a Kakao skill payload
-- Produces a callback-mode immediate response
-- Builds and sends the final callback response when a callback URL is present
-- Uses `plugin-runtime.ts` as the shared orchestration source
+- `handleSkillRequest` passes the Kakao payload through the shared runtime
+- `handleCallbackRequest` delegates callback delivery to the shared helper
+- `callbackUrl` missing means callback delivery is skipped
+- `src/callback.ts` builds the Kakao callback envelope from `YellowClawRenderResult`
 
 ## Notes
 
-- This is still a draft and may be renamed to match the final OpenClaw plugin runtime contract.
-- The callback URL check is explicit so the runtime can safely skip delivery when absent.
+Keep the entrypoint thin and keep callback delivery separate from rendering.

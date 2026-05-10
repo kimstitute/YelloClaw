@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the runtime contract that YellowClaw satisfies as an OpenClaw plugin.
+Define the runtime contract YellowClaw satisfies as an OpenClaw plugin.
 
 ## Runtime responsibilities
 
@@ -12,26 +12,16 @@ Define the runtime contract that YellowClaw satisfies as an OpenClaw plugin.
 - Support callback-mode responses
 - Keep channel-specific code isolated from core logic
 
-## Core surfaces
+## Stable surfaces
 
-- `handleSkillRequest(payload)`
-- `handleCallbackFlow(payload, result)`
-- `YellowClawApp`
-
-## Public handler surface
-
-- `src/entrypoint.ts` exports the stable public surface.
-
-## Shared orchestration surface
-
-- `src/plugin-runtime.ts` owns the singleton runtime and callback flow.
+- Public handler surface: `src/entrypoint.ts`
+- Shared orchestration surface: `src/plugin-runtime.ts`
+- Internal callback helper: `handleCallbackFlow(payload, result)`
 
 ## Optional surfaces
 
-- Relay and ngrok are optional adapter concerns.
-- They must not be required by the core runtime contract.
+Relay and ngrok are optional adapter concerns and must not be required by the core runtime contract.
 
 ## Notes
 
-- Keep this file aligned with the actual exported runtime surfaces.
-- Prefer code-level contracts over prose duplication.
+Keep this file aligned with the actual exported runtime surfaces and prefer code-level contracts over prose duplication.
