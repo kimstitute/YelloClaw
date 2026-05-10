@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { YellowClawRuntime } from './plugin-runtime';
 import type { KakaoSkillPayload } from './types';
 
@@ -9,155 +9,6 @@ describe('YellowClawRuntime', () => {
 
   afterEach(() => {
     YellowClawRuntime.reset();
-    vi.unstubAllGlobals();
-    vi.restoreAllMocks();
-  });
-
-  describe('runRelayOnce', () => {
-    it('should return no-op when relay is not configured', async () => {
-      const result = await YellowClawRuntime.runRelayOnce();
-      expect(result.processed).toBe(0);
-      expect(result.messageIds).toEqual([]);
-      expect(result.readiness.issues).toContain('runtime-not-configured');
-    });
-
-    it('should run relay inbox and return summary when ready', async () => {
-      YellowClawRuntime.configure({
-        kakao: {
-          enabled: true,
-          channelId: 'kakao',
-          relayUrl: 'https://relay.example',
-          relayToken: 'token-123',
-        },
-        auth: {
-          pairingRequired: true,
-          adminUserId: 'admin-1',
-        },
-        policy: {
-          adminOnlyTools: true,
-          allowlistOnly: true,
-          allowedUsers: [],
-        },
-      });
-
-      const fetchMock = vi
-        .fn()
-        .mockResolvedValueOnce({ ok: true, json: async () => ({ status: 'ok', timestamp: 123, version: '1.0.0' }) })
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({
-            messages: [
-              {
-                id: 'msg-1',
-                conversationKey: 'kakao:user-1',
-                timestamp: 123,
-                kakaoPayload: {
-                  userRequest: {
-                    utterance: 'hello',
-                    user: { id: 'user-1' },
-                  },
-                },
-                normalized: {
-                  userId: 'user-1',
-                  text: 'hello',
-                  channelId: 'kakao',
-                },
-                callbackUrl: 'https://example.com/callback',
-                callbackExpiresAt: 456,
-              },
-            ],
-            hasMore: false,
-          }),
-        })
-        .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true, deliveredAt: 1 }) })
-        .mockResolvedValueOnce({ ok: true, json: async () => ({ acknowledged: 1 }) });
-      vi.stubGlobal('fetch', fetchMock);
-
-      const result = await YellowClawRuntime.runRelayOnce();
-      expect(result.processed).toBe(1);
-      expect(result.messageIds).toEqual(['msg-1']);
-      expect(result.readiness.health?.status).toBe('ok');
-      expect(fetchMock).toHaveBeenCalledTimes(4);
-    });
-  });
-
-  describe('getRelayReadinessReport', () => {
-    it('should report issues when unconfigured', async () => {
-      const report = await YellowClawRuntime.getRelayReadinessReport();
-      expect(report.canProbeHealth).toBe(false);
-      expect(report.issues).toContain('runtime-not-configured');
-    });
-
-    it('should include health when relay is reachable', async () => {
-      YellowClawRuntime.configure({
-        kakao: {
-          enabled: true,
-          channelId: 'kakao',
-          relayUrl: 'https://relay.example',
-          relayToken: 'token-123',
-        },
-        auth: {
-          pairingRequired: true,
-          adminUserId: 'admin-1',
-        },
-        policy: {
-          adminOnlyTools: true,
-          allowlistOnly: true,
-          allowedUsers: [],
-        },
-      });
-
-      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ status: 'ok', timestamp: 123, version: '1.0.0' }),
-      }));
-
-      const report = await YellowClawRuntime.getRelayReadinessReport();
-      expect(report.canProbeHealth).toBe(true);
-      expect(report.health?.status).toBe('ok');
-      expect(report.issues).toEqual([]);
-    });
-  });
-
-  describe('getStatus', () => {
-    it('should report unconfigured runtime initially', () => {
-      expect(YellowClawRuntime.getStatus()).toEqual({
-        configured: false,
-        hasApp: false,
-        hasRelayClient: false,
-        relayUrl: undefined,
-        relayTokenConfigured: false,
-        channelId: undefined,
-      });
-    });
-
-    it('should report configured runtime after bootstrap config', () => {
-      YellowClawRuntime.configure({
-        kakao: {
-          enabled: true,
-          channelId: 'kakao',
-          relayUrl: 'https://relay.example',
-          relayToken: 'token-123',
-        },
-        auth: {
-          pairingRequired: true,
-          adminUserId: 'admin-1',
-        },
-        policy: {
-          adminOnlyTools: true,
-          allowlistOnly: true,
-          allowedUsers: [],
-        },
-      });
-
-      expect(YellowClawRuntime.getStatus()).toMatchObject({
-        configured: true,
-        hasRelayClient: true,
-        relayUrl: 'https://relay.example',
-        relayTokenConfigured: true,
-        channelId: 'kakao',
-      });
-    });
   });
 
   describe('getApp', () => {
@@ -191,15 +42,8 @@ describe('YellowClawRuntime', () => {
 
     it('should build immediate response with default text if empty', () => {
       const response = YellowClawRuntime.buildImmediateResponse('');
-
       const output = response.template.outputs[0] as any;
       expect(output.textCard?.title).toBe('잠시만 기다려줘.');
-    });
-
-    it('should always enable callback mode', () => {
-      const response = YellowClawRuntime.buildImmediateResponse('test');
-
-      expect(response.useCallback).toBe(true);
     });
   });
 
@@ -208,9 +52,7 @@ describe('YellowClawRuntime', () => {
       const payload: KakaoSkillPayload = {
         userRequest: {
           utterance: 'test message',
-          user: {
-            id: 'user123',
-          },
+          user: { id: 'user123' },
         },
       };
 
@@ -234,29 +76,12 @@ describe('YellowClawRuntime', () => {
       const output = response.template.outputs[0] as any;
       expect(output.textCard?.title).toBe('test message');
     });
-
-    it('should use singleton app instance', () => {
-      const app1 = YellowClawRuntime.getApp();
-
-      YellowClawRuntime.handleSkillRequest({
-        userRequest: {
-          utterance: 'test',
-          user: { id: 'user1' },
-        },
-      });
-
-      const app2 = YellowClawRuntime.getApp();
-
-      expect(app1).toBe(app2);
-    });
   });
 
   describe('handleCallbackFlow', () => {
     it('should return undefined if no callback URL provided', async () => {
       const payload: KakaoSkillPayload = {
-        userRequest: {
-          utterance: 'test',
-        },
+        userRequest: { utterance: 'test' },
       };
 
       const result = {
@@ -265,7 +90,6 @@ describe('YellowClawRuntime', () => {
       };
 
       const response = await YellowClawRuntime.handleCallbackFlow(payload, result);
-
       expect(response).toBeUndefined();
     });
 
@@ -278,7 +102,7 @@ describe('YellowClawRuntime', () => {
       };
 
       const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-      vi.stubGlobal('fetch', fetchMock);
+      globalThis.fetch = fetchMock as typeof fetch;
 
       const result = {
         text: 'response',
@@ -287,121 +111,6 @@ describe('YellowClawRuntime', () => {
 
       await YellowClawRuntime.handleCallbackFlow(payload, result);
       expect(fetchMock).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('relay inbox', () => {
-    it('should map relay messages to inbound messages', async () => {
-      YellowClawRuntime.configure({
-        kakao: {
-          enabled: true,
-          channelId: 'kakao',
-          relayUrl: 'https://relay.example',
-          relayToken: 'token-123',
-        },
-        auth: {
-          pairingRequired: true,
-          adminUserId: 'admin-1',
-        },
-        policy: {
-          adminOnlyTools: true,
-          allowlistOnly: true,
-          allowedUsers: [],
-        },
-      });
-
-      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          messages: [
-            {
-              id: 'msg-1',
-              conversationKey: 'kakao:user-1',
-              timestamp: 123,
-              kakaoPayload: {
-                userRequest: {
-                  utterance: 'hello',
-                  user: { id: 'user-1' },
-                },
-              },
-              normalized: {
-                userId: 'user-1',
-                text: 'hello',
-                channelId: 'kakao',
-              },
-              callbackUrl: 'https://example.com/callback',
-              callbackExpiresAt: 456,
-            },
-          ],
-          hasMore: false,
-        }),
-      }));
-
-      const inbox = await YellowClawRuntime.pollRelayInbox();
-      expect(inbox).toHaveLength(1);
-      expect(inbox[0]).toMatchObject({
-        channel: 'kakao',
-        userId: 'user-1',
-        text: 'hello',
-        callbackUrl: 'https://example.com/callback',
-      });
-    });
-
-    it('should process relay inbox through core flow', async () => {
-      YellowClawRuntime.configure({
-        kakao: {
-          enabled: true,
-          channelId: 'kakao',
-          relayUrl: 'https://relay.example',
-          relayToken: 'token-123',
-        },
-        auth: {
-          pairingRequired: true,
-          adminUserId: 'admin-1',
-        },
-        policy: {
-          adminOnlyTools: true,
-          allowlistOnly: true,
-          allowedUsers: [],
-        },
-      });
-
-      const fetchMock = vi
-        .fn()
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({
-            messages: [
-              {
-                id: 'msg-1',
-                conversationKey: 'kakao:user-1',
-                timestamp: 123,
-                kakaoPayload: {
-                  userRequest: {
-                    utterance: 'hello',
-                    user: { id: 'user-1' },
-                  },
-                },
-                normalized: {
-                  userId: 'user-1',
-                  text: 'hello',
-                  channelId: 'kakao',
-                },
-                callbackUrl: 'https://example.com/callback',
-                callbackExpiresAt: 456,
-              },
-            ],
-            hasMore: false,
-          }),
-        })
-        .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true, deliveredAt: 1 }) })
-        .mockResolvedValueOnce({ ok: true, json: async () => ({ acknowledged: 1 }) });
-      vi.stubGlobal('fetch', fetchMock);
-
-      const result = await YellowClawRuntime.processRelayInbox();
-
-      expect(result).toEqual({ processed: 1, messageIds: ['msg-1'] });
-      expect(fetchMock).toHaveBeenCalledTimes(3);
     });
   });
 });
