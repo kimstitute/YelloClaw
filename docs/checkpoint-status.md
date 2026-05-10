@@ -9,11 +9,12 @@
 - Example payloads and MVP guides are documented.
 - The shared orchestration surface is clearly `plugin-runtime.ts`.
 - The public handler surface is clearly `entrypoint.ts`.
+- The optional relay adapter is isolated under `src/adapters/relay.ts`.
+- The stable entrypoint surface is now explicitly `handleSkillRequest`, `handleCallbackRequest`, `bootstrap`, and `getApp`.
 
 ## Remaining work
 
 - Finalize the exact OpenClaw plugin runtime shape.
-- Replace placeholder rendering behavior with real Kakao schema-compliant payloads.
 - Decide whether quick replies should remain heuristic or become schema-driven.
 - Reduce any remaining draft duplication between runtime files.
 

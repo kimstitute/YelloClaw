@@ -4,18 +4,26 @@
 
 Define the file that OpenClaw loads as the YellowClaw runtime entrypoint.
 
+## Stable public surface
+
+- `handleSkillRequest(payload)`
+- `handleCallbackRequest(payload, result)`
+- `bootstrap(config?)`
+- `getApp()`
+
 ## Draft responsibilities
 
 - Expose the app orchestration surface
 - Accept Kakao skill payloads
 - Produce immediate callback-mode responses
 - Delegate callback delivery to the shared runtime helper
-- Re-export `getApp()` when needed by the plugin runtime contract
+- Keep relay/helper concerns outside the public surface
 
 ## Current draft files
 
-- `src/index.ts`
+- `src/entrypoint.ts`
 - `src/plugin-bootstrap.ts`
+- `src/plugin-runtime.ts`
 - `src/channel-adapters/kakao/index.ts`
 - `src/callback.ts`
 

@@ -4,12 +4,17 @@
 
 The entrypoint exposes stable functions that a future OpenClaw plugin runtime can call.
 
-## Draft API
+## Stable API
 
 - `handleSkillRequest(payload)`
 - `handleCallbackRequest(payload, result)`
+- `bootstrap(config?)`
 - `getApp()`
-- `handleCallbackFlow(payload, result)`
+
+## Internal runtime helper
+
+- `handleCallbackFlow(payload, result)` remains an internal shared helper on `src/plugin-runtime.ts`
+- The entrypoint should not expose callback delivery internals directly
 
 ## Behavior
 
