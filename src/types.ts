@@ -309,3 +309,12 @@ export interface KakaoRelayPollOptions {
   waitMs?: number;
   limit?: number;
 }
+
+export interface YellowClawRuntimeStatus {
+  configured: boolean;
+  hasApp: boolean;
+  hasRelayClient: boolean;
+  relayUrl?: string;
+  relayTokenConfigured: boolean;
+  channelId?: string;
+}

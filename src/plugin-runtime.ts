@@ -20,6 +20,7 @@ import type {
   KakaoSkillResponse,
   YellowClawPluginConfig,
   YellowClawRenderResult,
+  YellowClawRuntimeStatus,
 } from './types';
 
 /**
@@ -48,6 +49,17 @@ export class YellowClawRuntime {
 
   static getRelayClient(): KakaoRelayClient | null {
     return this.relayClient;
+  }
+
+  static getStatus(): YellowClawRuntimeStatus {
+    return {
+      configured: this.config !== null,
+      hasApp: this.instance !== null,
+      hasRelayClient: this.relayClient !== null,
+      relayUrl: this.config?.kakao.relayUrl,
+      relayTokenConfigured: Boolean(this.config?.kakao.relayToken),
+      channelId: this.config?.kakao.channelId,
+    };
   }
 
   static getApp(): YellowClawApp {

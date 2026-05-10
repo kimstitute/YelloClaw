@@ -10,6 +10,7 @@ import type {
   YellowClawPluginConfig,
   YellowClawRenderResult,
   YellowClawInboundMessage,
+  YellowClawRuntimeStatus,
 } from './types';
 
 type YellowClawAppInstance = ReturnType<typeof YellowClawRuntime.getApp>;
@@ -66,6 +67,10 @@ export async function generatePairingCode(
   metadata: Record<string, unknown> = {},
 ): Promise<KakaoRelayPairingResponse> {
   return YellowClawRuntime.generatePairingCode(expirySeconds, metadata);
+}
+
+export function getRuntimeStatus(): YellowClawRuntimeStatus {
+  return YellowClawRuntime.getStatus();
 }
 
 export async function bootstrap(config?: YellowClawPluginConfig): Promise<void> {

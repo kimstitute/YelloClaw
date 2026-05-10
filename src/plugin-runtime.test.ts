@@ -13,6 +13,47 @@ describe('YellowClawRuntime', () => {
     vi.restoreAllMocks();
   });
 
+  describe('getStatus', () => {
+    it('should report unconfigured runtime initially', () => {
+      expect(YellowClawRuntime.getStatus()).toEqual({
+        configured: false,
+        hasApp: false,
+        hasRelayClient: false,
+        relayUrl: undefined,
+        relayTokenConfigured: false,
+        channelId: undefined,
+      });
+    });
+
+    it('should report configured runtime after bootstrap config', () => {
+      YellowClawRuntime.configure({
+        kakao: {
+          enabled: true,
+          channelId: 'kakao',
+          relayUrl: 'https://relay.example',
+          relayToken: 'token-123',
+        },
+        auth: {
+          pairingRequired: true,
+          adminUserId: 'admin-1',
+        },
+        policy: {
+          adminOnlyTools: true,
+          allowlistOnly: true,
+          allowedUsers: [],
+        },
+      });
+
+      expect(YellowClawRuntime.getStatus()).toMatchObject({
+        configured: true,
+        hasRelayClient: true,
+        relayUrl: 'https://relay.example',
+        relayTokenConfigured: true,
+        channelId: 'kakao',
+      });
+    });
+  });
+
   describe('getApp', () => {
     it('should return singleton instance', () => {
       const app1 = YellowClawRuntime.getApp();
@@ -142,7 +183,6 @@ describe('YellowClawRuntime', () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
-
 
   describe('relay inbox', () => {
     it('should map relay messages to inbound messages', async () => {
