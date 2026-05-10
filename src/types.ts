@@ -222,6 +222,7 @@ export interface YellowClawPluginConfig {
   policy: YellowClawPolicy;
 }
 
+// Storage/transport records used by the runtime today or reserved for the next persistence layer.
 export interface YellowClawCallbackJob {
   callbackUrl: string;
   payload: KakaoCallbackRequest;
@@ -235,6 +236,7 @@ export interface YellowClawTransportEnvelope {
   callback?: YellowClawCallbackJob;
 }
 
+// Runtime storage: used by SessionManager today.
 export interface YellowClawUserProfile {
   userId: string;
   displayName?: string;
@@ -253,6 +255,7 @@ export interface YellowClawSessionRecord {
   state: Record<string, unknown>;
 }
 
+// Reserved records for future persistence/replay, not yet stored by the current runtime.
 export interface YellowClawMessageRecord {
   messageId: string;
   sessionId: string;

@@ -4,24 +4,24 @@
 
 - [ ] Kakao skill payload contract locked
 - [ ] Skill response / callback contract locked
-- [ ] Session manager draft aligned with app flow
-- [ ] Policy helpers aligned with allowlist-only access
-- [ ] Rendering draft aligned with Kakao card schema
-- [ ] Callback flow aligned with callback URL delivery
+- [x] Session manager aligned with app flow
+- [x] Policy helpers aligned with allowlist-only access
+- [x] Rendering aligned with Kakao card schema
+- [x] Callback flow aligned with callback URL delivery
 
 ## Plugin
 
 - [ ] OpenClaw plugin manifest aligned
-- [ ] Plugin bootstrap draft aligned with runtime
-- [ ] Plugin entrypoint draft aligned with runtime
-- [ ] Plugin runtime contract aligned
+- [x] Plugin bootstrap aligned with runtime
+- [x] Plugin entrypoint aligned with runtime
+- [x] Plugin runtime contract aligned
 
 ## Docs
 
 - [ ] README examples aligned
-- [ ] Type index kept current
-- [ ] MVP call chain documented
-- [ ] MVP example documented
+- [x] Type index kept current
+- [x] MVP call chain documented
+- [x] MVP example documented
 
 ## Notes
 

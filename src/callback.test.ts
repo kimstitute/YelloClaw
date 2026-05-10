@@ -27,6 +27,8 @@ describe('callback', () => {
       },
       data: { text: 'hello' },
     });
+    expect(Object.keys(payload).sort()).toEqual(['data', 'template', 'useCallback', 'version']);
+    expect(Object.keys(payload.template).sort()).toEqual(['outputs', 'quickReplies']);
   });
 
   it('posts the callback payload to the callback url', async () => {

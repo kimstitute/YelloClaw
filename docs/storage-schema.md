@@ -1,45 +1,110 @@
-# Storage Schema Draft
+# Storage Schema
 
 ## Purpose
 
-This document drafts the persistent records YellowClaw may need for sessions, messages, and authorization.
+Define the storage records YellowClaw keeps in memory today and may persist later.
 
-## Draft records
+## Canonical records
 
 ### YellowClawUserProfile
-- userId
-- displayName
-- role
-- paired
-- allowed
+Purpose: auth snapshot per user.
+
+Required fields:
+- `userId`
+- `role`
+- `paired`
+- `allowed`
+
+Optional fields:
+- `displayName`
+
+Stored by current runtime:
+- yes
+
+Not stored here:
+- policy decisions
+- session TTL metadata
 
 ### YellowClawSessionRecord
-- sessionId
-- userId
-- channel
-- createdAt
-- updatedAt
-- expiresAt
-- state
+Purpose: in-memory session state per channel + user.
+
+Required fields:
+- `sessionId`
+- `userId`
+- `channel`
+- `createdAt`
+- `updatedAt`
+- `state`
+
+Optional fields:
+- `expiresAt`
+
+Stored by current runtime:
+- yes
+
+Not stored here:
+- auth policy evaluation
+- message history
 
 ### YellowClawMessageRecord
-- messageId
-- sessionId
-- userId
-- channel
-- text
-- createdAt
-- direction
+Purpose: future replay/debug history for inbound/outbound messages.
+
+Required fields:
+- `messageId`
+- `sessionId`
+- `userId`
+- `channel`
+- `text`
+- `createdAt`
+- `direction`
+
+Optional fields:
+- none
+
+Stored by current runtime:
+- no
+
+Not stored here:
+- session TTL
+- callback delivery status
 
 ### YellowClawCallbackJob
-- callbackUrl
-- payload
-- status
-- createdAt
-- updatedAt
+Purpose: future callback delivery tracking.
+
+Required fields:
+- `callbackUrl`
+- `payload`
+- `status`
+- `createdAt`
+
+Optional fields:
+- `updatedAt`
+
+Stored by current runtime:
+- no
+
+Not stored here:
+- session state
+- auth state
+
+### YellowClawTransportEnvelope
+Purpose: future transport envelope for inbound + callback pairing.
+
+Required fields:
+- `inbound`
+
+Optional fields:
+- `callback`
+
+Stored by current runtime:
+- no
+
+Not stored here:
+- policy decisions
+- rendering results
 
 ## Notes
 
-- Keep session data small and explicit.
-- Avoid storing secrets in message history.
-- Store only what is needed for replay, debugging, and policy enforcement.
+- Keep records explicit and minimal.
+- Avoid storing secrets or derived policy decisions in history records.
+- If a record is not stored today, mark it as reserved instead of draft.

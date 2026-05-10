@@ -1,22 +1,26 @@
-# Plugin Bootstrap Draft
+# Plugin Bootstrap
 
 ## Purpose
 
-The bootstrap layer connects the Kakao skill payload to the YellowClaw app orchestrator.
+The bootstrap layer initializes YellowClaw runtime configuration.
 
-## Draft behavior
+## Responsibilities
 
-- Create a `YellowClawApp`
-- Accept the Kakao payload
-- Produce a minimal immediate response
-- Defer full processing to callback mode
+- Load or receive plugin config
+- Configure runtime policy
+- Initialize optional relay adapter state
+
+## Not responsible for
+
+- request handling
+- rendering
+- callback delivery
 
 ## Current implementation
 
-- `handleKakaoSkill(payload)` returns a minimal immediate response
-- The response uses callback mode
-- The immediate message is intentionally simple
+- `bootstrap(config?)` wires config into runtime state.
+- Relay initialization remains optional.
 
 ## Notes
 
-- This file is a draft and may be split later into a real plugin entry and a runtime handler.
+Keep bootstrap thin; request flow belongs in the runtime/entrypoint surface.

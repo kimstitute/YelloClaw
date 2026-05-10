@@ -12,11 +12,15 @@ describe('SessionManager', () => {
     it('should create a new session with expiration time', () => {
       const session = manager.getOrCreateSession('user123', 'kakao');
 
-      expect(session).toBeDefined();
-      expect(session.userId).toBe('user123');
-      expect(session.channel).toBe('kakao');
+      expect(session).toMatchObject({
+        sessionId: 'kakao:user123',
+        userId: 'user123',
+        channel: 'kakao',
+        state: {},
+      });
+      expect(session.createdAt).toBeDefined();
+      expect(session.updatedAt).toBeDefined();
       expect(session.expiresAt).toBeDefined();
-      expect(session.state).toEqual({});
     });
 
     it('should return existing session if not expired', () => {
@@ -94,8 +98,12 @@ describe('SessionManager', () => {
       const session = manager.getOrCreateSession('user123', 'kakao');
       const context = manager.toConversationContext(session);
 
-      expect(context.userId).toBe('user123');
-      expect(context.channel).toBe('kakao');
+      expect(context).toMatchObject({
+        userId: 'user123',
+        channel: 'kakao',
+        sessionId: 'kakao:user123',
+        state: {},
+      });
       expect(context.ttlSeconds).toBeDefined();
       expect(context.ttlSeconds).toBeGreaterThan(0);
       expect(context.ttlSeconds).toBeLessThanOrEqual(10);
@@ -232,7 +240,7 @@ describe('SessionManager', () => {
       allowed: true,
     });
 
-    expect(manager.getAuthState('user123')).toEqual({
+    expect(manager.getAuthState('user123')).toMatchObject({
       userId: 'user123',
       role: 'admin',
       paired: true,
