@@ -17,6 +17,7 @@ import type {
   KakaoRelayPollOptions,
   KakaoRelayReplyResponse,
   YellowClawInboundMessage,
+  YellowClawRelayReadinessReport,
   KakaoSkillPayload,
   KakaoSkillResponse,
   YellowClawPluginConfig,
@@ -57,6 +58,29 @@ export class YellowClawRuntime {
       throw new Error('Relay client is not configured.');
     }
     return this.relayClient.probeHealth();
+  }
+
+  static async getRelayReadinessReport(): Promise<YellowClawRelayReadinessReport> {
+    const status = this.getStatus();
+    const issues: string[] = [];
+
+    if (!status.configured) issues.push('runtime-not-configured');
+    if (!status.relayUrl) issues.push('missing-relay-url');
+    if (!status.relayTokenConfigured) issues.push('missing-relay-token');
+    if (!status.hasRelayClient) issues.push('relay-client-not-ready');
+
+    if (!status.hasRelayClient) {
+      return { status, canProbeHealth: false, issues };
+    }
+
+    try {
+      const health = await this.probeRelayHealth();
+      if (health.status && health.status !== 'ok') issues.push(`health-${health.status}`);
+      return { status, canProbeHealth: true, health, issues };
+    } catch (error) {
+      issues.push('health-probe-failed');
+      return { status, canProbeHealth: true, issues };
+    }
   }
 
   static getStatus(): YellowClawRuntimeStatus {

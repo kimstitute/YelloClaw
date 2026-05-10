@@ -324,3 +324,10 @@ export interface YellowClawRuntimeStatus {
   relayTokenConfigured: boolean;
   channelId?: string;
 }
+
+export interface YellowClawRelayReadinessReport {
+  status: YellowClawRuntimeStatus;
+  canProbeHealth: boolean;
+  health?: KakaoRelayHealthResponse;
+  issues: string[];
+}

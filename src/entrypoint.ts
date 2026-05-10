@@ -12,6 +12,7 @@ import type {
   YellowClawRenderResult,
   YellowClawInboundMessage,
   YellowClawRuntimeStatus,
+  YellowClawRelayReadinessReport,
 } from './types';
 
 type YellowClawAppInstance = ReturnType<typeof YellowClawRuntime.getApp>;
@@ -76,6 +77,10 @@ export async function generatePairingCode(
 
 export function getRuntimeStatus(): YellowClawRuntimeStatus {
   return YellowClawRuntime.getStatus();
+}
+
+export async function getRelayReadinessReport(): Promise<YellowClawRelayReadinessReport> {
+  return YellowClawRuntime.getRelayReadinessReport();
 }
 
 export async function bootstrap(config?: YellowClawPluginConfig): Promise<void> {

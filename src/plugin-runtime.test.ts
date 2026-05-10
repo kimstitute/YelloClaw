@@ -13,6 +13,44 @@ describe('YellowClawRuntime', () => {
     vi.restoreAllMocks();
   });
 
+  describe('getRelayReadinessReport', () => {
+    it('should report issues when unconfigured', async () => {
+      const report = await YellowClawRuntime.getRelayReadinessReport();
+      expect(report.canProbeHealth).toBe(false);
+      expect(report.issues).toContain('runtime-not-configured');
+    });
+
+    it('should include health when relay is reachable', async () => {
+      YellowClawRuntime.configure({
+        kakao: {
+          enabled: true,
+          channelId: 'kakao',
+          relayUrl: 'https://relay.example',
+          relayToken: 'token-123',
+        },
+        auth: {
+          pairingRequired: true,
+          adminUserId: 'admin-1',
+        },
+        policy: {
+          adminOnlyTools: true,
+          allowlistOnly: true,
+          allowedUsers: [],
+        },
+      });
+
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ status: 'ok', timestamp: 123, version: '1.0.0' }),
+      }));
+
+      const report = await YellowClawRuntime.getRelayReadinessReport();
+      expect(report.canProbeHealth).toBe(true);
+      expect(report.health?.status).toBe('ok');
+      expect(report.issues).toEqual([]);
+    });
+  });
+
   describe('getStatus', () => {
     it('should report unconfigured runtime initially', () => {
       expect(YellowClawRuntime.getStatus()).toEqual({
