@@ -1,11 +1,11 @@
 import { YellowClawApp } from './index';
-import {
-  toKakaoImmediateResponse,
-} from './channel-adapters/kakao';
+import { defaultPolicy } from './policy';
+import { toKakaoImmediateResponse } from './channel-adapters/kakao';
 import { buildCallbackPayload, postKakaoCallback } from './callback';
 import type {
   KakaoSkillPayload,
   KakaoSkillResponse,
+  YellowClawPluginConfig,
   YellowClawRenderResult,
 } from './types';
 
@@ -17,16 +17,27 @@ import type {
  */
 export class YellowClawRuntime {
   private static instance: YellowClawApp | null = null;
+  private static policy = defaultPolicy;
+
+  static configure(config?: YellowClawPluginConfig): void {
+    if (config?.policy) {
+      this.policy = config.policy;
+    }
+    if (this.instance) {
+      this.instance.setPolicy(this.policy);
+    }
+  }
 
   static getApp(): YellowClawApp {
     if (!this.instance) {
-      this.instance = new YellowClawApp();
+      this.instance = new YellowClawApp(this.policy);
     }
     return this.instance;
   }
 
   static reset(): void {
     this.instance = null;
+    this.policy = defaultPolicy;
   }
 
   static buildImmediateResponse(inboundText: string): KakaoSkillResponse {

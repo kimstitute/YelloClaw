@@ -16,6 +16,13 @@ This document describes the smallest end-to-end chain that should work before ex
 8. Callback payload is POSTed to `callbackUrl`
 9. Kakao returns a callback delivery result
 
+## Contract notes
+
+- Policy checks happen before rendering decisions are finalized.
+- The immediate ACK is not the final user-facing response.
+- The callback payload carries the final rendered message.
+- Core flow should remain valid even when relay is absent.
+
 ## MVP invariants
 
 - One user, one session scope

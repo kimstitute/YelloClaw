@@ -5,6 +5,7 @@ import { defaultPolicy, isUserAllowed } from './policy';
 import type {
   KakaoSkillPayload,
   YellowClawInboundMessage,
+  YellowClawPolicy,
   YellowClawRenderResult,
 } from './types';
 
@@ -12,12 +13,22 @@ export * from './types';
 
 export class YellowClawApp {
   private sessionManager = new SessionManager();
+  private policy: YellowClawPolicy;
+
+  constructor(policy: YellowClawPolicy = defaultPolicy) {
+    this.policy = policy;
+  }
+
+  setPolicy(policy: YellowClawPolicy): void {
+    this.policy = policy;
+  }
 
   handleInbound(payload: KakaoSkillPayload): YellowClawInboundMessage {
     const userId = payload.userRequest.user?.id ?? 'unknown';
-    const session = this.sessionManager.getOrCreateSession(userId, 'kakao');
+    this.sessionManager.getOrCreateSession(userId, 'kakao');
     this.sessionManager.updateSessionState(userId, 'kakao', {
       lastUtterance: payload.userRequest.utterance,
+      allowed: this.canAccess(userId),
     });
 
     return {
@@ -30,7 +41,7 @@ export class YellowClawApp {
   }
 
   canAccess(userId: string): boolean {
-    return isUserAllowed(userId, defaultPolicy);
+    return isUserAllowed(userId, this.policy);
   }
 
   render(result: YellowClawRenderResult) {
