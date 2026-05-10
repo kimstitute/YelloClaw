@@ -11,8 +11,8 @@ Use Kakao callback mode to separate fast acknowledgment from final response deli
 3. Return a fast `SkillResponse` with `useCallback: true`
 4. Process the message in YellowClaw/OpenClaw core
 5. Render the final response
-6. Build `KakaoCallbackRequest`
-7. POST it to `userRequest.callbackUrl`
+6. Call `buildCallbackPayload(result)`
+7. If `callbackUrl` exists, call `postKakaoCallback(callbackUrl, payload)`
 8. Record the callback result as `KakaoCallbackResponse`
 
 ## Data model
@@ -33,3 +33,4 @@ Use Kakao callback mode to separate fast acknowledgment from final response deli
 - The immediate response should stay minimal.
 - The final user-facing response belongs in the callback step.
 - Keep callback transport separate from rendering and policy.
+- If no callback URL is present, callback delivery is a noop.

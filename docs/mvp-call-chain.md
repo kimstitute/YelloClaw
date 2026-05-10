@@ -1,37 +1,28 @@
-# Minimum MVP Call Chain
+# MVP Call Chain
 
 ## Goal
 
-This document describes the smallest end-to-end chain that should work before expanding YellowClaw.
+Keep the smallest Kakao → YellowClaw → callback loop explicit.
 
-## MVP chain
+## Chain
 
-1. Kakao sends `SkillPayload`
-2. Entrypoint receives payload
-3. App creates inbound message and updates session state
-4. Policy checks determine whether the user can proceed
-5. Renderer creates a Kakao-ready response
-6. Entrypoint returns immediate callback-mode ACK
-7. Callback payload is built
-8. Callback payload is POSTed to `callbackUrl`
-9. Kakao returns a callback delivery result
+1. Kakao sends a `SkillPayload`
+2. Entrypoint receives it
+3. Runtime gets or creates the app
+4. SessionManager stores session/profile snapshots
+5. Policy evaluates allowed / paired / role
+6. App builds render input
+7. Renderer produces text/card + quick replies
+8. Runtime builds the callback payload
+9. Callback transport posts to `callbackUrl` when present
 
-## Contract notes
+## Contract
 
-- Policy checks happen before rendering decisions are finalized.
-- The immediate ACK is not the final user-facing response.
-- The callback payload carries the final rendered message.
-- Core flow should remain valid even when relay is absent.
-
-## MVP invariants
-
-- One user, one session scope
-- Allowlist-only access
-- Admin-only sensitive tools
-- Plain text fallback always available
-- Card response support included in the MVP
+- SessionManager stores state.
+- Policy evaluates access.
+- Runtime connects storage, policy, rendering, and callback transport.
+- Callback delivery is skipped when `callbackUrl` is missing.
 
 ## Notes
 
-- This chain is intentionally minimal.
-- Any additional tool execution should happen after this chain is stable.
+This is the minimum working flow before richer behavior or persistence.

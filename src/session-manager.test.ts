@@ -131,6 +131,36 @@ describe('SessionManager', () => {
     });
   });
 
+  it('should recreate a fresh session after expiration without preserving old state', () => {
+    let currentTime = 0;
+    vi.spyOn(Date, 'now').mockImplementation(() => currentTime);
+
+    manager.updateSessionState('user123', 'kakao', {
+      lastUtterance: 'hello',
+    });
+
+    currentTime = 11000;
+    const fresh = manager.getOrCreateSession('user123', 'kakao');
+
+    expect(fresh.state).toEqual({});
+    expect(fresh.createdAt).toBeDefined();
+
+    vi.restoreAllMocks();
+  });
+
+  it('should calculate ttlSeconds as floor seconds remaining', () => {
+    let currentTime = 0;
+    vi.spyOn(Date, 'now').mockImplementation(() => currentTime);
+
+    const session = manager.getOrCreateSession('user123', 'kakao');
+    currentTime = 2500;
+
+    const context = manager.toConversationContext(session);
+    expect(context.ttlSeconds).toBe(7);
+
+    vi.restoreAllMocks();
+  });
+
   describe('cleanupExpiredSessions', () => {
     it('should remove expired sessions and return count', () => {
       const originalNow = Date.now;
@@ -191,6 +221,22 @@ describe('SessionManager', () => {
       expect(state.role).toBe('user');
       expect(state.paired).toBe(false);
       expect(state.allowed).toBe(false);
+    });
+  });
+
+  it('should reflect stored profile changes in auth snapshots', () => {
+    manager.setUserProfile({
+      userId: 'user123',
+      role: 'admin',
+      paired: true,
+      allowed: true,
+    });
+
+    expect(manager.getAuthState('user123')).toEqual({
+      userId: 'user123',
+      role: 'admin',
+      paired: true,
+      allowed: true,
     });
   });
 

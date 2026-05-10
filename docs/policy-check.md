@@ -10,6 +10,6 @@
 
 ## Draft helper expectations
 
-- `isAdminUser` checks both admin policy and allowlist membership.
+- `isAdminUser` checks explicit admin identity and admin gating.
 - `isUserAllowed` respects allowlist mode.
 - `evaluateAuthState` derives `paired` and `allowed` together.

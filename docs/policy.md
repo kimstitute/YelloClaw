@@ -8,15 +8,21 @@ Define access control and privilege rules for YellowClaw.
 
 - `allowlistOnly` is the default posture.
 - Sensitive tools are admin-only.
-- The admin identity must be explicit.
+- Admin identity is explicit.
 - Only allowlisted users may interact when allowlist mode is enabled.
-- `evaluateAuthState(userId, policy)` should derive `allowed`, `paired`, and `role` consistently.
+- `evaluateAuthState(userId, policy)` derives `allowed`, `paired`, and `role` consistently.
 
 ## Draft helpers
 
 - `isAdminUser(userId, policy)`
 - `isUserAllowed(userId, policy)`
 - `evaluateAuthState(userId, policy)`
+
+## Boundary
+
+- Policy decides access.
+- SessionManager only stores snapshots.
+- Runtime can inject the configured admin identity into policy, but policy remains the source of truth for role evaluation.
 
 ## Notes
 

@@ -205,6 +205,7 @@ export interface YellowClawPolicy {
   adminOnlyTools: boolean;
   allowlistOnly: boolean;
   allowedUsers: string[];
+  adminUserId?: string;
 }
 
 export interface YellowClawPluginConfig {

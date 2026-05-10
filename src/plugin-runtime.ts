@@ -22,7 +22,10 @@ export class YellowClawRuntime {
 
   static configure(config?: YellowClawPluginConfig): void {
     if (config?.policy) {
-      this.policy = config.policy;
+      this.policy = {
+        ...config.policy,
+        adminUserId: config.auth.adminUserId,
+      };
     }
     if (this.instance) {
       this.instance.setPolicy(this.policy);

@@ -2,16 +2,22 @@
 
 ## Purpose
 
-SessionManager is responsible for in-memory state for YellowClaw while the system is still being designed.
+SessionManager is the in-memory storage layer for YellowClaw.
 
 ## Responsibilities
 
 - Create and fetch user profiles
-- Store auth state
+- Store auth snapshots as user profile records
 - Create and fetch sessions
 - Update session state
 - Convert session records into conversation context objects
 - Use channel + user as the session key for the first version
+
+## Boundary
+
+- SessionManager stores data.
+- It does not decide policy.
+- `getAuthState()` returns a snapshot of stored profile state, not a policy evaluation.
 
 ## Notes
 

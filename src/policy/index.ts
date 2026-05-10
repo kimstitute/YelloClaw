@@ -4,10 +4,11 @@ export const defaultPolicy: YellowClawPolicy = {
   adminOnlyTools: true,
   allowlistOnly: true,
   allowedUsers: [],
+  adminUserId: '',
 };
 
 export function isAdminUser(userId: string, policy: YellowClawPolicy): boolean {
-  return policy.adminOnlyTools && policy.allowedUsers.includes(userId);
+  return policy.adminOnlyTools && policy.adminUserId === userId;
 }
 
 export function isUserAllowed(userId: string, policy: YellowClawPolicy): boolean {
