@@ -18,6 +18,7 @@ import type {
   KakaoRelayReplyResponse,
   YellowClawInboundMessage,
   YellowClawRelayReadinessReport,
+  YellowClawRelayRunResult,
   KakaoSkillPayload,
   KakaoSkillResponse,
   YellowClawPluginConfig,
@@ -81,6 +82,19 @@ export class YellowClawRuntime {
       issues.push('health-probe-failed');
       return { status, canProbeHealth: true, issues };
     }
+  }
+
+  static async runRelayOnce(
+    options: KakaoRelayPollOptions = {},
+    resolver?: (message: YellowClawInboundMessage, app: YellowClawApp) => Promise<YellowClawRenderResult> | YellowClawRenderResult,
+  ): Promise<YellowClawRelayRunResult> {
+    const readiness = await this.getRelayReadinessReport();
+    if (readiness.issues.length > 0 || !readiness.canProbeHealth) {
+      return { readiness, processed: 0, messageIds: [] };
+    }
+
+    const run = await this.processRelayInbox(options, resolver);
+    return { readiness, ...run };
   }
 
   static getStatus(): YellowClawRuntimeStatus {

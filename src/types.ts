@@ -331,3 +331,9 @@ export interface YellowClawRelayReadinessReport {
   health?: KakaoRelayHealthResponse;
   issues: string[];
 }
+
+export interface YellowClawRelayRunResult {
+  readiness: YellowClawRelayReadinessReport;
+  processed: number;
+  messageIds: string[];
+}

@@ -13,6 +13,7 @@ import type {
   YellowClawInboundMessage,
   YellowClawRuntimeStatus,
   YellowClawRelayReadinessReport,
+  YellowClawRelayRunResult,
 } from './types';
 
 type YellowClawAppInstance = ReturnType<typeof YellowClawRuntime.getApp>;
@@ -81,6 +82,13 @@ export function getRuntimeStatus(): YellowClawRuntimeStatus {
 
 export async function getRelayReadinessReport(): Promise<YellowClawRelayReadinessReport> {
   return YellowClawRuntime.getRelayReadinessReport();
+}
+
+export async function runRelayOnce(
+  options?: KakaoRelayPollOptions,
+  resolver?: (message: YellowClawInboundMessage, app: YellowClawAppInstance) => Promise<YellowClawRenderResult> | YellowClawRenderResult,
+): Promise<YellowClawRelayRunResult> {
+  return YellowClawRuntime.runRelayOnce(options, resolver);
 }
 
 export async function bootstrap(config?: YellowClawPluginConfig): Promise<void> {
