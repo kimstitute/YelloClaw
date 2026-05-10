@@ -1,3 +1,4 @@
+import { DEFAULT_FALLBACK_TEXT } from './constants';
 import { YellowClawApp } from './index';
 import { defaultPolicy } from './policy';
 import { toKakaoImmediateResponse } from './channel-adapters/kakao';
@@ -41,7 +42,7 @@ export class YellowClawRuntime {
   }
 
   static buildImmediateResponse(inboundText: string): KakaoSkillResponse {
-    return toKakaoImmediateResponse(inboundText || '잠시만 기다려줘.');
+    return toKakaoImmediateResponse(inboundText || DEFAULT_FALLBACK_TEXT);
   }
 
   static handleSkillRequest(payload: KakaoSkillPayload): KakaoSkillResponse {

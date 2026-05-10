@@ -13,12 +13,12 @@
 
 ## Example render outcome
 
-- Plain text fallback is always included.
+- Plain text fallback uses `DEFAULT_FALLBACK_TEXT` when input is empty.
 - Card mode may include:
   - text card
-  - basic card
-  - list card
-- Quick replies may be derived from render data.
+  - basic card only when image URL is real
+  - list card only when items are valid
+- Quick replies may be derived from non-empty string render data.
 
 ## Notes
 

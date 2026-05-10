@@ -4,19 +4,17 @@
 
 ### renderForKakao(card)
 Current code returns:
-- `textCard.title = text`
-- `basicCard.title = text`
-- `basicCard.thumbnail.fixedRatio = false`
-- `listCard.header.title = text`
-- `listCard.items[0].title = text`
-- `listCard.items[0].description = 'YellowClaw rendered this list item as a placeholder for the MVP.'`
-- `listCard.items[0].action = 'message'`
-- `listCard.items[0].messageText = text`
-- `listCard.buttonLayout = 'vertical'`
-- `quickReplies` derived from string-valued render data entries
+- `textCard.title = resolved text`
+- `basicCard` only when a real image URL is provided
+- `listCard` only when valid items are provided
+- `quickReplies` only from non-empty string data values
+- empty input falls back to `DEFAULT_FALLBACK_TEXT`
 
-### README example
-The README example should match the same shape and default titles.
+### Rules
+
+- Plain text fallback is always valid.
+- Placeholder cards must not escape the renderer.
+- Card mode may collapse to a text card when extras are invalid.
 
 ## Rule
 
