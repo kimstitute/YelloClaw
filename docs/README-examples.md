@@ -34,8 +34,9 @@
       {
         "basicCard": {
           "title": "안녕, 민상아",
+          "description": "YellowClaw card mode example",
           "thumbnail": {
-            "imageUrl": "https://placehold.co/600x400/png",
+            "imageUrl": "https://example.com/yellowclaw-card.png",
             "fixedRatio": false
           }
         }
@@ -47,10 +48,10 @@
           },
           "items": [
             {
-              "title": "안녕, 민상아",
-              "description": "YellowClaw rendered this list item as a placeholder for the MVP.",
+              "title": "다음 단계",
+              "description": "OpenClaw runtime contract example",
               "action": "message",
-              "messageText": "안녕, 민상아"
+              "messageText": "다음 단계"
             }
           ],
           "buttonLayout": "vertical"
@@ -70,5 +71,5 @@
 
 ## Notes
 
-- These examples are draft-oriented and should stay aligned with the renderer implementation.
-- Use them as README snippets or as future docs content.
+- These examples are aligned with the current renderer contract.
+- Use them as README snippets or future docs content.

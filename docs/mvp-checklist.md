@@ -11,14 +11,14 @@
 
 ## Plugin
 
-- [ ] OpenClaw plugin manifest aligned
+- [x] OpenClaw plugin manifest aligned
 - [x] Plugin bootstrap aligned with runtime
 - [x] Plugin entrypoint aligned with runtime
 - [x] Plugin runtime contract aligned
 
 ## Docs
 
-- [ ] README examples aligned
+- [x] README examples aligned
 - [x] Type index kept current
 - [x] MVP call chain documented
 - [x] MVP example documented

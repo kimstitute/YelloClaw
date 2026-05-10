@@ -26,12 +26,24 @@ YellowClaw is configured as an OpenClaw plugin entry named `yellow-claw`.
 }
 ```
 
+## Manifest path mapping
+
+- `plugins.entries.yellow-claw.config.kakao.enabled`
+- `plugins.entries.yellow-claw.config.kakao.channelId`
+- `plugins.entries.yellow-claw.config.kakao.relayUrl`
+- `plugins.entries.yellow-claw.config.kakao.relayToken`
+- `plugins.entries.yellow-claw.config.auth.pairingRequired`
+- `plugins.entries.yellow-claw.config.auth.adminUserId`
+- `plugins.entries.yellow-claw.config.policy.adminOnlyTools`
+- `plugins.entries.yellow-claw.config.policy.allowlistOnly`
+- `plugins.entries.yellow-claw.config.policy.allowedUsers`
+
 ## Semantics
 
 - `kakao.enabled`: whether the Kakao adapter is active
 - `kakao.channelId`: Kakao channel identifier
-- `kakao.relayUrl`: optional relay endpoint
-- `kakao.relayToken`: relay auth token if needed
+- `kakao.relayUrl`: optional relay endpoint under the Kakao config block
+- `kakao.relayToken`: relay auth token under the Kakao config block
 - `auth.pairingRequired`: whether pairing is mandatory
 - `auth.adminUserId`: admin identity for privileged actions
 - `policy.adminOnlyTools`: restrict sensitive tools to admin

@@ -14,27 +14,34 @@ KakaoTalk channel plugin for OpenClaw.
 
 ## Workspace
 
-- `docs/` — design notes, contracts, flows, schema drafts, and examples
-- `src/` — plugin source and runtime drafts
+- `docs/` — design notes, contracts, flows, schema, and examples
+- `src/` — plugin source and runtime
 - `configs/` — sample plugin config
 - `kakao-spec/` — Kakao-specific notes
 
 ## MVP summary
 
 - KakaoTalk channel only
-- Card responses included
+- Card responses supported
 - Per-user context separation
 - Allowlist-only access
 - Admin-only sensitive tools
 - Callback-mode response flow
 
-## Runtime drafts
+## Runtime surfaces
 
-- `src/plugin-runtime.ts`
-- `src/plugin-bootstrap.ts`
-- `src/entrypoint.ts`
-- `src/callback.ts`
-- `src/index.ts`
+- Public surface: `src/entrypoint.ts`
+- Shared orchestration: `src/plugin-runtime.ts`
+- Optional relay adapter: `src/adapters/relay.ts`
+- Bootstrap/init: `src/plugin-bootstrap.ts`
+
+## Call chain
+
+1. KakaoTalk sends a `SkillPayload`
+2. `src/entrypoint.ts` receives the request
+3. `src/plugin-runtime.ts` orchestrates app, session, policy, rendering, and callback flow
+4. `src/renderers/index.ts` shapes the Kakao response
+5. `src/callback.ts` builds and posts callback payloads when a callback URL exists
 
 ## Current docs
 
@@ -66,7 +73,7 @@ KakaoTalk channel plugin for OpenClaw.
 - `docs/runtime-code-alignment.md`
 - `docs/plugin-runtime-contract.md`
 
-## Current runtime drafts
+## Current runtime files
 
 - `src/types.ts`
 - `src/index.ts`
@@ -78,15 +85,6 @@ KakaoTalk channel plugin for OpenClaw.
 - `src/plugin-bootstrap.ts`
 - `src/entrypoint.ts`
 - `src/plugin-runtime.ts`
-
-## Current status
-
-YellowClaw is in early scaffold / contract-locking mode.
-The next step is to refine the plugin runtime contract and align the README with the MVP call chain and response examples.
-
-## MVP guide
-
-- `docs/final-mvp-guide.md`
 
 ## Example docs
 
