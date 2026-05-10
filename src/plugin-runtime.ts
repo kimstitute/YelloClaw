@@ -11,6 +11,7 @@ import { buildCallbackPayload, postKakaoCallback } from './callback';
 import type {
   KakaoRelayAckResponse,
   KakaoRelayInboundMessage,
+  KakaoRelayHealthResponse,
   KakaoRelayMessagesResponse,
   KakaoRelayPairingResponse,
   KakaoRelayPollOptions,
@@ -49,6 +50,13 @@ export class YellowClawRuntime {
 
   static getRelayClient(): KakaoRelayClient | null {
     return this.relayClient;
+  }
+
+  static async probeRelayHealth(): Promise<KakaoRelayHealthResponse> {
+    if (!this.relayClient) {
+      throw new Error('Relay client is not configured.');
+    }
+    return this.relayClient.probeHealth();
   }
 
   static getStatus(): YellowClawRuntimeStatus {

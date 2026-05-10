@@ -2,6 +2,7 @@ import type {
   KakaoCallbackRequest,
   KakaoRelayAckResponse,
   KakaoRelayInboundMessage,
+  KakaoRelayHealthResponse,
   KakaoRelayMessagesResponse,
   KakaoRelayNormalizedMessage,
   KakaoRelayPairingResponse,
@@ -95,6 +96,14 @@ export class KakaoRelayClient {
       authorization: `Bearer ${this.token}`,
       'content-type': 'application/json',
     };
+  }
+
+  async probeHealth(): Promise<KakaoRelayHealthResponse> {
+    const response = await fetch(new URL('/health', this.baseUrl), { headers: this.headers });
+    if (!response.ok) {
+      throw new Error(`Relay health failed: ${response.status} ${response.statusText}`);
+    }
+    return (await response.json()) as KakaoRelayHealthResponse;
   }
 
   async pollMessages(options: KakaoRelayPollOptions = {}): Promise<KakaoRelayMessagesResponse> {

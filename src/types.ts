@@ -304,6 +304,12 @@ export interface KakaoRelayPairingResponse {
   expiresAt: number;
 }
 
+export interface KakaoRelayHealthResponse {
+  status?: string;
+  timestamp?: number;
+  version?: string;
+}
+
 export interface KakaoRelayPollOptions {
   cursor?: string;
   waitMs?: number;

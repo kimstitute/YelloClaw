@@ -60,6 +60,23 @@ describe('Kakao relay adapter', () => {
     });
   });
 
+  it('probes relay health with auth header', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ status: 'ok', timestamp: 123, version: '1.0.0' }),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const client = new KakaoRelayClient('https://relay.example', 'token-123');
+    const health = await client.probeHealth();
+
+    expect(health.status).toBe('ok');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(String(url)).toBe('https://relay.example/health');
+    expect((init as RequestInit).headers).toMatchObject({ authorization: 'Bearer token-123' });
+  });
+
   it('polls relay messages with auth header and query params', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,

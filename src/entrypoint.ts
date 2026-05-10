@@ -1,6 +1,7 @@
 import { YellowClawRuntime } from './plugin-runtime';
 import type {
   KakaoRelayInboundMessage,
+  KakaoRelayHealthResponse,
   KakaoRelayMessagesResponse,
   KakaoRelayPairingResponse,
   KakaoRelayPollOptions,
@@ -36,6 +37,10 @@ export async function pollRelayMessages(
   options?: KakaoRelayPollOptions,
 ): Promise<KakaoRelayMessagesResponse> {
   return YellowClawRuntime.pollRelayMessages(options);
+}
+
+export async function probeRelayHealth(): Promise<KakaoRelayHealthResponse> {
+  return YellowClawRuntime.probeRelayHealth();
 }
 
 export async function sendRelayReply(
