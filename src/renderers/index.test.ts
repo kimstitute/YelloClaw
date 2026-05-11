@@ -10,7 +10,7 @@ describe('renderForKakao', () => {
     expect(result.quickReplies).toEqual([]);
     expect(result.cards).toHaveLength(1);
     const output = result.cards?.[0] as any;
-    expect(output.textCard?.title).toBe(DEFAULT_FALLBACK_TEXT);
+    expect(output.simpleText?.text).toBe(DEFAULT_FALLBACK_TEXT);
   });
 
   it('returns only a text card when card mode has no extra valid cards', () => {

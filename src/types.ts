@@ -72,9 +72,16 @@ export interface KakaoTemplateEnvelope {
 }
 
 export type KakaoOutput =
+  | KakaoSimpleTextOutput
   | KakaoTextCardOutput
   | KakaoBasicCardOutput
   | KakaoListCardOutput;
+
+export interface KakaoSimpleTextOutput {
+  simpleText: {
+    text: string; // max 1000자
+  };
+}
 
 export interface KakaoTextCardOutput {
   textCard: {

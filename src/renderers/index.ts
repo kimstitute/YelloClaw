@@ -5,6 +5,7 @@ import type {
   KakaoListCardOutput,
   KakaoOutput,
   KakaoQuickReply,
+  KakaoSimpleTextOutput,
   KakaoTextCardOutput,
   YellowClawRenderRequest,
   YellowClawRenderResult,
@@ -35,6 +36,16 @@ function resolveText(request: Pick<RenderInput, 'text' | 'markdown'>): string {
   const rawText = request.text ?? (request.markdown ? normalizeMarkdown(request.markdown) : '');
   const trimmed = rawText.trim();
   return trimmed.length > 0 ? trimmed : DEFAULT_FALLBACK_TEXT;
+}
+
+const SIMPLE_TEXT_LIMIT = 1000;
+
+function toSimpleText(text: string): KakaoSimpleTextOutput {
+  return {
+    simpleText: {
+      text: text.length > SIMPLE_TEXT_LIMIT ? text.slice(0, SIMPLE_TEXT_LIMIT - 1) + '…' : text,
+    },
+  };
 }
 
 function toTextCard(text: string): KakaoTextCardOutput {
@@ -144,7 +155,7 @@ export function renderForKakao(request: RenderInput): YellowClawRenderResult {
 
   return {
     text,
-    cards: [toTextCard(text)],
+    cards: [toSimpleText(text)],
     quickReplies,
   };
 }
@@ -153,7 +164,7 @@ export function renderTextOnly(text: string): YellowClawRenderResult {
   const resolved = text.trim().length > 0 ? text : DEFAULT_FALLBACK_TEXT;
   return {
     text: resolved,
-    cards: [toTextCard(resolved)],
+    cards: [toSimpleText(resolved)],
     quickReplies: [],
   };
 }
