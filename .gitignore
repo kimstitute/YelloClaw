@@ -2,3 +2,15 @@ node_modules/
 dist/
 .env
 .DS_Store
+
+# Internal documentation — not for GitHub
+docs/
+dev-step/
+CLAUDE.md
+IMPLEMENTATION_PLAN.md
+
+# Agent outbox runtime data
+tools/agent-outbox/agent.db
+tools/agent-outbox/*.db
+tools/agent-outbox/**/__pycache__/
+tools/agent-outbox/*.egg-info/

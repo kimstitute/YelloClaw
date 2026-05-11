@@ -2,6 +2,15 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { OpenClawPluginApi, PluginRuntime, OpenClawConfig } from 'openclaw/plugin-sdk/channel-core';
 import type { KakaoSkillPayload } from '../types.js';
 import { callbackUrlMap, kakaoOutboundAdapter } from './outbound.js';
+import { buildCallbackPayload, postKakaoCallback } from '../callback.js';
+import { renderTextOnly } from '../renderers/index.js';
+import { renderOutboxMessages } from '../renderers/outbox.js';
+import { fetchPendingMessages, isOutboxEnabled, markPulled } from '../outbox.js';
+
+const PULL_PHRASES = new Set([
+  '.', '확인', '알림 확인', '새 메시지 확인', '대기 메시지 확인',
+  '업데이트 확인', '뭐 온 거 있어?', '/pull',
+]);
 
 async function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -103,7 +112,7 @@ export function registerInboundRoute(
 ): void {
   api.registerHttpRoute({
     path: '/webhook/kakao',
-    auth: 'gateway',
+    auth: 'plugin',
     handler: async (req: IncomingMessage, res: ServerResponse) => {
       const body = await readBody(req);
 
@@ -130,6 +139,33 @@ export function registerInboundRoute(
       }
       if (!callbackUrl) {
         console.warn(`[inbound] no callbackUrl for userId=${userId} — kakao callback mode off`);
+        return;
+      }
+
+      // allowFrom 차단: pairingRequired=true 이고 allowFrom 목록이 있으면 목록에 없는 사용자는 무시
+      const cfg = rt.config.current() as OpenClawConfig;
+      const ch = (cfg as Record<string, unknown>)['channels'] as Record<string, unknown> | undefined;
+      const section = ch?.['kakao-talkchannel'] as Record<string, unknown> | undefined;
+      const entry = section?.['default'] as Record<string, unknown> | undefined;
+      const pairingRequired = entry?.['pairingRequired'] !== false;
+      const allowFrom = (entry?.['allowFrom'] as string[] | undefined) ?? [];
+      if (pairingRequired && allowFrom.length > 0 && !allowFrom.includes(userId)) {
+        console.warn(`[inbound] blocked userId=${userId} (not in allowFrom)`);
+        postKakaoCallback(callbackUrl, buildCallbackPayload(renderTextOnly('이 채널은 허가된 사용자만 이용할 수 있습니다.'))).catch(() => {});
+        return;
+      }
+
+      // pull phrase: outbox 조회 후 콜백 직접 응답 (AI turn 없음)
+      if (isOutboxEnabled() && PULL_PHRASES.has(payload.userRequest.utterance.trim())) {
+        try {
+          const messages = await fetchPendingMessages(userId);
+          const rendered = renderOutboxMessages(messages);
+          await postKakaoCallback(callbackUrl, buildCallbackPayload(rendered));
+          await Promise.all(messages.map((m) => markPulled(m.id)));
+        } catch (err) {
+          console.error('[inbound] pull error', err);
+          postKakaoCallback(callbackUrl, buildCallbackPayload(renderTextOnly('알림을 불러오는 데 실패했습니다.'))).catch(() => {});
+        }
         return;
       }
 

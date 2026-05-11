@@ -20,7 +20,7 @@
   "license": "MIT",
   "openclaw": {
     "extensions": ["./src/plugin.ts"],
-    "runtimeExtensions": ["./dist/plugin.js"],
+    "runtimeExtensions": ["./src/plugin.ts"],
     "channel": {
       "id": "kakao-talkchannel",
       "label": "KakaoTalk",

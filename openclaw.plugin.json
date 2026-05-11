@@ -1,9 +1,14 @@
 {
-  "name": "@openclaw/yellow-claw",
-  "version": "0.1.0",
-  "description": "KakaoTalk channel plugin for OpenClaw",
-  "openclaw": {
-    "extensions": ["./src/plugin.ts"],
-    "runtimeExtensions": ["./dist/plugin.js"]
+  "id": "yellow-claw",
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "channels": ["kakao-talkchannel"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
   }
 }

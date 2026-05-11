@@ -1,0 +1,16 @@
+[Unit]
+Description=YellowClaw Agent Outbox Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/minsang/Documents/Workspaces/yellow-claw/tools/agent-outbox
+ExecStart=uvicorn app.main:app --host 127.0.0.1 --port 3001
+Environment=OUTBOX_TOKEN=changeme
+Environment=DB_PATH=/home/minsang/Documents/Workspaces/yellow-claw/tools/agent-outbox/agent.db
+Environment=SEND_SCRIPT=/home/minsang/Documents/Workspaces/yellow-claw/tools/kakao-send-linux.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
