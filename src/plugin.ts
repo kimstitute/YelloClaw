@@ -7,6 +7,7 @@ import { kakaoConfigAdapter, kakaoSetupAdapter } from './channel/config.js';
 import { kakaoSecurityAdapter } from './channel/security.js';
 import { kakaoOutboundAdapter } from './channel/outbound.js';
 import { registerInboundRoute } from './channel/inbound.js';
+import { notifyUserToolFactory } from './tools/notify.js';
 
 let runtime: PluginRuntime | undefined;
 
@@ -38,5 +39,6 @@ export default defineChannelPluginEntry({
   },
   registerFull: (api) => {
     registerInboundRoute(api, () => runtime);
+    api.registerTool(notifyUserToolFactory);
   },
 });
