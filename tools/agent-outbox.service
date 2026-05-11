@@ -5,10 +5,12 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/home/minsang/Documents/Workspaces/yellow-claw/tools/agent-outbox
-ExecStart=uvicorn app.main:app --host 127.0.0.1 --port 3001
-Environment=OUTBOX_TOKEN=changeme
+ExecStart=/home/minsang/.local/bin/uvicorn app.main:app --host 127.0.0.1 --port 3001
+Environment=OUTBOX_TOKEN=dev
 Environment=DB_PATH=/home/minsang/Documents/Workspaces/yellow-claw/tools/agent-outbox/agent.db
 Environment=SEND_SCRIPT=/home/minsang/Documents/Workspaces/yellow-claw/tools/kakao-send-linux.sh
+Environment=DISPLAY=:0
+Environment=KAKAO_WINDOW_TITLE=YellowClaw
 Restart=always
 RestartSec=10
 
