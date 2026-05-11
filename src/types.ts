@@ -1,8 +1,8 @@
+// KakaoTalk wire format types — inbound skill requests and outbound responses.
+
 export type ChannelName = 'kakao';
 
 export interface KakaoSkillPayload {
-  // Kakao inbound skill body.
-  // MVP runtime depends on userRequest; the other top-level sections stay optional.
   bot?: KakaoSkillBot;
   intent?: KakaoSkillIntent;
   action?: KakaoSkillAction;
@@ -31,9 +31,7 @@ export interface KakaoSkillAction {
 }
 
 export interface KakaoUserRequest {
-  // Raw user text is required for routing and immediate ACK text.
   utterance: string;
-  // Callback endpoint used when Kakao callback mode is enabled.
   callbackUrl?: string;
   block?: KakaoBlock;
   user?: KakaoUserIdentity;
@@ -162,43 +160,7 @@ export interface KakaoCallbackResponse {
   timestamp?: number;
 }
 
-export interface YellowClawInboundMessage {
-  channel: ChannelName;
-  userId: string;
-  text: string;
-  raw: KakaoSkillPayload;
-  callbackUrl?: string;
-}
-
-export interface YellowClawConversationContext {
-  userId: string;
-  channel: ChannelName;
-  sessionId: string;
-  updatedAt: string;
-  ttlSeconds?: number;
-  state: Record<string, unknown>;
-}
-
-export interface YellowClawAuthState {
-  userId: string;
-  role: 'admin' | 'user';
-  paired: boolean;
-  allowed: boolean;
-}
-
-export interface YellowClawToolCall {
-  toolName: string;
-  args: Record<string, unknown>;
-  requestedBy: string;
-}
-
-export interface YellowClawRenderRequest {
-  format: 'text' | 'card';
-  markdown?: string;
-  text?: string;
-  data?: Record<string, unknown>;
-}
-
+// Render output type used by renderers/ and callback.ts
 export interface YellowClawRenderResult {
   text?: string;
   context?: KakaoContextEnvelope;
@@ -206,143 +168,9 @@ export interface YellowClawRenderResult {
   quickReplies?: KakaoQuickReply[];
 }
 
-export interface YellowClawPolicy {
-  adminOnlyTools: boolean;
-  allowlistOnly: boolean;
-  allowedUsers: string[];
-  adminUserId?: string;
-}
-
-export interface YellowClawPluginConfig {
-  kakao: {
-    enabled: boolean;
-    channelId?: string;
-    relayUrl?: string;
-    relayToken?: string;
-  };
-  auth: {
-    pairingRequired: boolean;
-    adminUserId: string;
-  };
-  policy: YellowClawPolicy;
-}
-
-// Storage/transport records used by the runtime today or reserved for the next persistence layer.
-export interface YellowClawCallbackJob {
-  callbackUrl: string;
-  payload: KakaoCallbackRequest;
-  status: 'pending' | 'sent' | 'failed';
-  createdAt: string;
-  updatedAt?: string;
-}
-
-export interface YellowClawTransportEnvelope {
-  inbound: YellowClawInboundMessage;
-  callback?: YellowClawCallbackJob;
-}
-
-// Runtime storage: used by SessionManager today.
-export interface YellowClawUserProfile {
-  userId: string;
-  displayName?: string;
-  role: 'admin' | 'user';
-  paired: boolean;
-  allowed: boolean;
-}
-
-export interface YellowClawSessionRecord {
-  sessionId: string;
-  userId: string;
-  channel: ChannelName;
-  createdAt: string;
-  updatedAt: string;
-  expiresAt?: string;
-  state: Record<string, unknown>;
-}
-
-// Reserved records for future persistence/replay, not yet stored by the current runtime.
-export interface YellowClawMessageRecord {
-  messageId: string;
-  sessionId: string;
-  userId: string;
-  channel: ChannelName;
-  text: string;
-  createdAt: string;
-  direction: 'inbound' | 'outbound';
-}
-
-export interface KakaoRelayNormalizedMessage {
-  userId: string;
-  text: string;
-  channelId: string;
-}
-
-export interface KakaoRelayInboundMessage {
-  id: string;
-  conversationKey: string;
-  timestamp: number;
-  kakaoPayload: KakaoSkillPayload;
-  normalized: KakaoRelayNormalizedMessage;
-  callbackUrl: string;
-  callbackExpiresAt: number;
-}
-
-export interface KakaoRelayMessagesResponse {
-  messages: KakaoRelayInboundMessage[];
-  cursor?: string;
-  hasMore: boolean;
-}
-
-export interface KakaoRelayReplyRequest {
-  messageId: string;
-  conversationKey: string;
-  response: KakaoSkillResponse;
-}
-
-export interface KakaoRelayReplyResponse {
-  success: boolean;
-  deliveredAt?: number;
-}
-
-export interface KakaoRelayAckResponse {
-  acknowledged: number;
-}
-
-export interface KakaoRelayPairingResponse {
-  code: string;
-  expiresAt: number;
-}
-
-export interface KakaoRelayHealthResponse {
-  status?: string;
-  timestamp?: number;
-  version?: string;
-}
-
-export interface KakaoRelayPollOptions {
-  cursor?: string;
-  waitMs?: number;
-  limit?: number;
-}
-
-export interface YellowClawRuntimeStatus {
-  configured: boolean;
-  hasApp: boolean;
-  hasRelayClient: boolean;
-  relayUrl?: string;
-  relayTokenConfigured: boolean;
-  channelId?: string;
-}
-
-export interface YellowClawRelayReadinessReport {
-  status: YellowClawRuntimeStatus;
-  canProbeHealth: boolean;
-  health?: KakaoRelayHealthResponse;
-  issues: string[];
-}
-
-export interface YellowClawRelayRunResult {
-  readiness: YellowClawRelayReadinessReport;
-  processed: number;
-  messageIds: string[];
+export interface YellowClawRenderRequest {
+  format: 'text' | 'card';
+  markdown?: string;
+  text?: string;
+  data?: Record<string, unknown>;
 }

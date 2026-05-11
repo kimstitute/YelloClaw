@@ -12,6 +12,10 @@ def create_app(state: RelayState | None = None) -> FastAPI:
     resolved_state = state or get_state()
     resolved_state.relay_token = resolved_state.relay_token or os.getenv("RELAY_TOKEN")
     resolved_state.pairing_mode = resolved_state.pairing_mode or os.getenv("PAIRING_MODE", "stub")
+    # OPENCLAW_GATEWAY_URL: OpenClaw gateway address for /skill → /webhook/kakao forwarding.
+    # Default: http://localhost:4000 (OpenClaw gateway default port)
+    if not os.getenv("OPENCLAW_GATEWAY_URL"):
+        os.environ.setdefault("OPENCLAW_GATEWAY_URL", "http://localhost:4000")
     set_state(resolved_state)
 
     app = FastAPI(title="YellowClaw Mock Relay")

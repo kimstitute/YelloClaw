@@ -72,3 +72,8 @@ class PairingGenerateResponse(BaseModel):
     pairingCode: str
     expiresAt: str
     mode: str
+
+
+class SkillAckResponse(BaseModel):
+    version: str = "2.0"
+    useCallback: bool = True

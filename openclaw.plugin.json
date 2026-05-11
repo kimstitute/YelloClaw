@@ -3,31 +3,7 @@
   "version": "0.1.0",
   "description": "KakaoTalk channel plugin for OpenClaw",
   "openclaw": {
-    "extensions": ["./src/index.ts"],
-    "runtimeExtensions": ["./dist/index.js"]
-  },
-  "plugins": {
-    "entries": {
-      "yellow-claw": {
-        "enabled": true,
-        "config": {
-          "kakao": {
-            "enabled": true,
-            "channelId": "kakao",
-            "relayUrl": "https://kakao.openclaw.local",
-            "relayToken": "CHANGE_ME_RELAY_TOKEN"
-          },
-          "auth": {
-            "pairingRequired": true,
-            "adminUserId": "1120110770370392105"
-          },
-          "policy": {
-            "adminOnlyTools": true,
-            "allowlistOnly": true,
-            "allowedUsers": ["1120110770370392105"]
-          }
-        }
-      }
-    }
+    "extensions": ["./src/plugin.ts"],
+    "runtimeExtensions": ["./dist/plugin.js"]
   }
 }

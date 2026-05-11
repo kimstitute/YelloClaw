@@ -1,17 +1,14 @@
 {
-  "kakao": {
-    "enabled": true,
-    "channelId": "",
-    "relayUrl": "",
-    "relayToken": ""
-  },
-  "auth": {
-    "pairingRequired": true,
-    "adminUserId": ""
-  },
-  "policy": {
-    "adminOnlyTools": true,
-    "allowlistOnly": true,
-    "allowedUsers": []
+  "_comment": "OpenClaw 설정 파일(openclaw.config.json)에 아래 channels 섹션을 병합하세요.",
+  "channels": {
+    "kakao-talkchannel": {
+      "default": {
+        "relayUrl": "http://localhost:3000",
+        "relayToken": "dev",
+        "externalId": "_HBjKX",
+        "pairingRequired": true,
+        "allowFrom": []
+      }
+    }
   }
 }

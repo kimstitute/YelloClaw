@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import os
+import uuid
 from datetime import datetime, timezone, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+import httpx
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 
 from .auth import require_bearer_token
 from .schemas import (
@@ -16,6 +19,7 @@ from .schemas import (
     RelayMessagePayload,
     ReplyRequest,
     ReplyResponse,
+    SkillAckResponse,
 )
 from .state import RelayMessage, RelayState, get_state
 
@@ -72,6 +76,38 @@ def post_reply(payload: ReplyRequest, token: str = Depends(require_bearer_token)
 def ack_messages(payload: AckRequest, token: str = Depends(require_bearer_token), state: RelayState = Depends(get_state)) -> AckResponse:
     _ = token
     return AckResponse(acknowledged=state.ack_messages(payload.messageIds))
+
+
+@router.post("/skill", response_model=SkillAckResponse)
+async def receive_skill(request: Request, state: RelayState = Depends(get_state)) -> SkillAckResponse:
+    """Receives a KakaoTalk skill payload and enqueues it.
+
+    If OPENCLAW_GATEWAY_URL is set, also forwards the full payload to
+    the plugin's /webhook/kakao route so the SDK turn kernel processes it directly.
+    """
+    payload = await request.json()
+    user_id = (payload.get("userRequest") or {}).get("user", {}).get("id") or "unknown"
+    callback_url = (payload.get("userRequest") or {}).get("callbackUrl") or ""
+    utterance = (payload.get("userRequest") or {}).get("utterance") or ""
+
+    message = RelayMessage(
+        id=str(uuid.uuid4()),
+        conversation_key=user_id,
+        normalized={"userId": user_id, "text": utterance},
+        kakao_payload=payload,
+        callback_url=callback_url,
+    )
+    state.seed_message(message)
+
+    gateway_url = os.getenv("OPENCLAW_GATEWAY_URL", "").rstrip("/")
+    if gateway_url:
+        try:
+            async with httpx.AsyncClient(timeout=10) as client:
+                await client.post(f"{gateway_url}/webhook/kakao", json=payload)
+        except Exception as exc:
+            print(f"[skill] forward to gateway failed: {exc}")
+
+    return SkillAckResponse()
 
 
 @router.post("/openclaw/pairing/generate", response_model=PairingGenerateResponse)

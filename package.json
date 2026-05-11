@@ -8,7 +8,7 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "build": "tsc --noEmit",
-    "build:check": "tsc --noEmit --module esnext --target es2022 --moduleResolution bundler --lib es2022,dom --skipLibCheck src/*.ts src/core/*.ts src/policy/*.ts src/renderers/*.ts"
+    "build:check": "tsc --noEmit --module esnext --target es2022 --moduleResolution bundler --lib es2022,dom --skipLibCheck src/*.ts src/renderers/*.ts src/channel-adapters/kakao/*.ts src/channel/*.ts"
   },
   "keywords": [
     "kakao",
@@ -18,10 +18,31 @@
   ],
   "author": "Minsang Kim",
   "license": "MIT",
+  "openclaw": {
+    "extensions": ["./src/plugin.ts"],
+    "runtimeExtensions": ["./dist/plugin.js"],
+    "channel": {
+      "id": "kakao-talkchannel",
+      "label": "KakaoTalk",
+      "selectionLabel": "KakaoTalk Channel",
+      "blurb": "KakaoTalk 채널 플러그인"
+    },
+    "install": {
+      "defaultChoice": "local",
+      "minHostVersion": ">=2026.1.29"
+    },
+    "compat": {
+      "pluginApi": ">=2026.1.29"
+    }
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.1.29"
+  },
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "openclaw": "^2026.5.7",
+    "tsx": "^4.0.0",
     "typescript": "^5.8.3",
     "vitest": "^1.0.4"
-  },
-  "dependencies": {}
+  }
 }
