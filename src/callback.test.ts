@@ -14,6 +14,7 @@ describe('callback', () => {
   it('builds a Kakao callback payload from render result', () => {
     const payload = buildCallbackPayload({
       text: 'hello',
+      context: { values: [{ name: 'flow', lifeSpan: 3 }] },
       cards: [{ textCard: { title: 'hello' } }],
       quickReplies: [{ label: 'Yes', action: 'message', messageText: 'yes' }],
     });
@@ -25,9 +26,10 @@ describe('callback', () => {
         outputs: [{ textCard: { title: 'hello' } }],
         quickReplies: [{ label: 'Yes', action: 'message', messageText: 'yes' }],
       },
+      context: { values: [{ name: 'flow', lifeSpan: 3 }] },
       data: { text: 'hello' },
     });
-    expect(Object.keys(payload).sort()).toEqual(['data', 'template', 'useCallback', 'version']);
+    expect(Object.keys(payload).sort()).toEqual(['context', 'data', 'template', 'useCallback', 'version']);
     expect(Object.keys(payload.template).sort()).toEqual(['outputs', 'quickReplies']);
   });
 

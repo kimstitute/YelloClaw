@@ -49,12 +49,14 @@ describe('kakao channel adapter', () => {
   it('builds callback request', () => {
     const result: YellowClawRenderResult = {
       text: 'response',
+      context: { values: [{ name: 'flow', lifeSpan: 1 }] },
       cards: [{ textCard: { title: 'response' } }],
     };
 
     expect(toKakaoCallbackRequest(result)).toMatchObject({
       version: '2.0',
       useCallback: true,
+      context: { values: [{ name: 'flow', lifeSpan: 1 }] },
       data: { text: 'response' },
     });
   });

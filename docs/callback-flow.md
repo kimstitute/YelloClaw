@@ -26,6 +26,8 @@ Use Kakao callback mode to separate fast acknowledgment from final response deli
 ## Runtime helper
 
 - `buildCallbackPayload(result)` creates the Kakao callback payload.
+  - It follows the same top-level envelope as `KakaoSkillResponse`.
+  - `result.context` and `result.text` are forwarded into top-level `context` / `data` when present.
 - `postKakaoCallback(callbackUrl, request)` sends the payload to Kakao.
 
 ## Notes

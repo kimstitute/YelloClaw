@@ -10,6 +10,7 @@ export function buildCallbackPayload(
       outputs: result.cards ?? [],
       quickReplies: result.quickReplies ?? [],
     },
+    context: result.context,
     data: result.text ? { text: result.text } : undefined,
   };
 }

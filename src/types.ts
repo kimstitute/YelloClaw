@@ -1,6 +1,8 @@
 export type ChannelName = 'kakao';
 
 export interface KakaoSkillPayload {
+  // Kakao inbound skill body.
+  // MVP runtime depends on userRequest; the other top-level sections stay optional.
   bot?: KakaoSkillBot;
   intent?: KakaoSkillIntent;
   action?: KakaoSkillAction;
@@ -29,10 +31,12 @@ export interface KakaoSkillAction {
 }
 
 export interface KakaoUserRequest {
+  // Raw user text is required for routing and immediate ACK text.
+  utterance: string;
+  // Callback endpoint used when Kakao callback mode is enabled.
   callbackUrl?: string;
   block?: KakaoBlock;
   user?: KakaoUserIdentity;
-  utterance: string;
   params?: Record<string, unknown>;
   lang?: string;
   timezone?: string;
@@ -197,6 +201,7 @@ export interface YellowClawRenderRequest {
 
 export interface YellowClawRenderResult {
   text?: string;
+  context?: KakaoContextEnvelope;
   cards?: KakaoOutput[];
   quickReplies?: KakaoQuickReply[];
 }

@@ -11,6 +11,12 @@ Expected top-level structure:
 - `userRequest`
 - `contexts`
 
+MVP rules:
+- `userRequest` is required
+- `userRequest.utterance` is required
+- `userRequest.user.id` is preferred when present, but runtime must tolerate it being missing
+- `bot` / `intent` / `action` / `contexts` stay optional for now
+
 Important `userRequest` fields:
 - `callbackUrl` — where the final response must be POSTed
 - `block` — the active block information
@@ -83,7 +89,8 @@ YellowClaw notes:
 - The final response is sent to `userRequest.callbackUrl`
 - The request is JSON POST
 - The payload format follows the skill response structure
-- `context` and `data` are also top-level siblings when present
+- `context` and `data` are top-level siblings when present
+- YellowClaw forwards optional `result.context` into callback payloads and uses `data` for text metadata
 - This is the actual user-facing message delivery step
 
 YellowClaw notes:

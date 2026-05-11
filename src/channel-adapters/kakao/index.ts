@@ -1,3 +1,4 @@
+import { buildCallbackPayload } from '../../callback';
 import type {
   KakaoCallbackRequest,
   KakaoSkillPayload,
@@ -47,15 +48,7 @@ export function toKakaoImmediateResponse(text: string): KakaoSkillResponse {
 export function toKakaoCallbackRequest(
   result: YellowClawRenderResult,
 ): KakaoCallbackRequest {
-  return {
-    version: '2.0',
-    useCallback: true,
-    template: {
-      outputs: result.cards ?? [],
-      quickReplies: result.quickReplies ?? [],
-    },
-    data: result.text ? { text: result.text } : undefined,
-  };
+  return buildCallbackPayload(result);
 }
 
 export async function postKakaoCallback(
