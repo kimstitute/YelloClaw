@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/mascot.png" alt="YellowClaw mascot" width="420" />
+</p>
+
 # YellowClaw
 
 KakaoTalk channel plugin for [OpenClaw](https://openclaw.ai), built on the OpenClaw Plugin SDK.
