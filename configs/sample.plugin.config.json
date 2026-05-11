@@ -5,7 +5,7 @@
       "default": {
         "relayUrl": "http://localhost:3000",
         "relayToken": "dev",
-        "externalId": "_HBjKX",
+        "externalId": "_XXXXXX",
         "pairingRequired": true,
         "allowFrom": []
       }
